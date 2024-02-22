@@ -1,5 +1,5 @@
 // Tipo number para números
-let idade: number = 25;
+let idade: number = 25; // por anotation
 let altura: number = 1.75;
 
 // Tipo string para texto
@@ -13,6 +13,7 @@ let isAdmin: boolean = false;
 // Tipo array para coleções de valores do mesmo tipo
 let numeros: number[] = [1, 2, 3, 4, 5];
 let nomes: string[] = ["Maria", "João", "Ana"];
+//testeste
 
 // Tipo tuple para arrays com um número fixo de elementos e tipos definidos
 let pessoa: [string, number] = ["João", 25];
