@@ -1,6 +1,6 @@
 "use strict";
 // Tipo number para números
-let idade = 25;
+let idade = 25; // por anotation
 let altura = 1.75;
 // Tipo string para texto
 let nome = "João";
@@ -11,6 +11,7 @@ let isAdmin = false;
 // Tipo array para coleções de valores do mesmo tipo
 let numeros = [1, 2, 3, 4, 5];
 let nomes = ["Maria", "João", "Ana"];
+//testeste
 // Tipo tuple para arrays com um número fixo de elementos e tipos definidos
 let pessoa = ["João", 25];
 // Tipo any para qualquer tipo de valor (evitar usar quando possível)
