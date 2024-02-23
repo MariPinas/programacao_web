@@ -10,6 +10,15 @@ Vamos criar variáveis e objetos para representar diferentes tipos de dados rela
     email: do tipo string, representando o endereço de e-mail do usuário.
     isAtivo: do tipo boolean, representando se o usuário está ativo ou não.
 
+*/
+
+let nomeCompleto: string;
+let idade:number;
+let email:string;
+let isAtivo: boolean;
+
+/*
+
 2 -Crie um objeto usuario com as seguintes propriedades:
 
     nome: string, representando o primeiro nome do usuário.
@@ -21,6 +30,50 @@ Vamos criar variáveis e objetos para representar diferentes tipos de dados rela
     Em seguida, imprima todas as variáveis e propriedades do objeto usuario usando console.log.
 
 */
+let usuario:{
+    nome: string,
+    sobrenome: string,  //por anotacao
+    idade: number, 
+    contato: {
+        email: string,
+        telefone:  string,
+    }
+}
+
+usuario={ //tem que utilizar o = para colocar valor
+    nome: "Mariana",
+    sobrenome: "Pereira",
+    idade: 20, 
+    contato: {
+        email: "marianapls2003@gmail.com",
+        telefone: "283192130138",
+    }
+}
+
+type Contato={
+    email: string,
+    telefone:  string,
+}
+
+type Pessoa={
+    nome: string,
+    sobrenome: string,  
+    idade: number, 
+    contato: Contato,
+}
+
+let user: Pessoa;
+
+user={
+    nome: "Mariana",
+    sobrenome: "Pereira",
+    idade: 20, 
+    contato: {
+        email: "marianapls2003@gmail.com",
+        telefone: "283192130138",
+    }
+}
+
 
 
 /*
@@ -34,7 +87,13 @@ Precisamos armazenar informações sobre diferentes produtos disponíveis na loj
     nomeProduto: do tipo string, representando o nome de um produto.
     preco: do tipo number, representando o preço do produto.
     disponivel: do tipo boolean, representando se o produto está disponível em estoque ou não.
+*/
 
+    let nomeProduto: string;
+    let preco: number;
+    let disponivel: boolean;
+
+/*
 
 02 - Crie um objeto produto com as seguintes propriedades:
 
@@ -44,4 +103,18 @@ Precisamos armazenar informações sobre diferentes produtos disponíveis na loj
     categorias: array de strings, representando as categorias às quais o produto pertence.
     Em seguida, imprima todas as variáveis e propriedades do objeto produto usando console.log.
 
-*/
+*/  
+
+let produto:{
+    nome: string,
+    preco: number,
+    estoque: number, 
+    categorias: string[],
+}
+
+produto ={
+    nome: "Geladeira",
+    preco: 2131.23,
+    estoque: 2, 
+    categorias: ["Linha Branca"],
+}
