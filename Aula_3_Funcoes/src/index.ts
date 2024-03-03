@@ -105,7 +105,35 @@ switch(expression) {
 } 
 
 */
+function calculadora(num1:number, num2:number, op:string): number{
+    switch(op){
+        case 'soma':{
+            return num1 + num2
+            break;
+        }
+        case 'subtracao':{
+            return num1 - num2
+            break;
+        }
+        case 'divisao':{
+            return num1 / num2
+            break;
+        }
+        case 'multiplicacao':{
+            return num1 * num2
+            break;
+        }
+        default:{
+            return 1;
+            break;
+        }
+    }
+}
 
+console.log(calculadora(5, 3, "soma")); // Saída esperada: 8
+console.log(calculadora(10, 2, "subtracao")); // Saída esperada: 8
+console.log(calculadora(4, 5, "multiplicacao")); // Saída esperada: 20
+console.log(calculadora(10, 2, "divisao")); // Saída esperada: 5
 
 /*
 Exercício 2: Verificador de Palíndromo
@@ -123,3 +151,17 @@ let frase: string = "Ana"
 const fraseInverso = frase.split('').reverse().join('');
 
 */
+
+function verificarPalindromo(frase:string): boolean{
+    const fraseInverso = frase.split('').reverse().join('')
+
+    if (fraseInverso == frase)
+        return true;
+    else
+        return false;
+}
+
+console.log(verificarPalindromo("arara")); // Saída esperada: true
+console.log(verificarPalindromo("reviver")); // Saída esperada: true
+console.log(verificarPalindromo("banana")); // Saída esperada: false
+console.log(verificarPalindromo("reconhecer")); // Saída esperada: true

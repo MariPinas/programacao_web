@@ -11,6 +11,8 @@ let add = function (x, y) { return (x + y); };
 function adicionarTipada(x, y) {
     return x + y;
 }
+let teste = adicionarTipada(12, 5);
+console.log(teste);
 function somarTipada(p1, p2) {
     let p = { x: p1.x + p2.x, y: p1.y + p2.y };
     return p;
@@ -27,7 +29,7 @@ function nome(primeiro, ultimo) {
         return primeiro;
     }
 }
-nome('José', 'Silva'); // retorna 'José Silva'
+console.log(nome('José', 'Silva')); // retorna 'José Silva'
 nome('José'); // retorna 'José'
 function inicializar(valor = 0) {
     return valor;
@@ -82,6 +84,34 @@ switch(expression) {
 }
 
 */
+function calculadora(num1, num2, op) {
+    switch (op) {
+        case 'soma': {
+            return num1 + num2;
+            break;
+        }
+        case 'subtracao': {
+            return num1 - num2;
+            break;
+        }
+        case 'divisao': {
+            return num1 / num2;
+            break;
+        }
+        case 'multiplicacao': {
+            return num1 * num2;
+            break;
+        }
+        default: {
+            return 1;
+            break;
+        }
+    }
+}
+console.log(calculadora(5, 3, "soma")); // Saída esperada: 8
+console.log(calculadora(10, 2, "subtracao")); // Saída esperada: 8
+console.log(calculadora(4, 5, "multiplicacao")); // Saída esperada: 20
+console.log(calculadora(10, 2, "divisao")); // Saída esperada: 5
 /*
 Exercício 2: Verificador de Palíndromo
 Crie uma função chamada verificarPalindromo que recebe uma string como parâmetro e retorna verdadeiro se a string for um palíndromo
@@ -97,4 +127,15 @@ Dica:
 let frase: string = "Ana"
 const fraseInverso = frase.split('').reverse().join('');
 
-*/ 
+*/
+function verificarPalindromo(frase) {
+    const fraseInverso = frase.split('').reverse().join('');
+    if (fraseInverso == frase)
+        return true;
+    else
+        return false;
+}
+console.log(verificarPalindromo("arara")); // Saída esperada: true
+console.log(verificarPalindromo("reviver")); // Saída esperada: true
+console.log(verificarPalindromo("banana")); // Saída esperada: false
+console.log(verificarPalindromo("reconhecer")); // Saída esperada: true
