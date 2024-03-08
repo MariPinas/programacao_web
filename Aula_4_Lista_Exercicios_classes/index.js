@@ -59,8 +59,7 @@ class Calculadora {
         if (this.valor2 != 0)
             return this.valor1 / this.valor2;
         else {
-            console.log("erro");
-            return 1;
+            return "erro";
         }
     }
     multiplicacao() {
@@ -78,6 +77,9 @@ console.log(`A soma de ${calc.getValor1} e de ${calc.getValor2} é igual a: ${ca
 calc.setValor1 = 8;
 calc.setValor2 = 4;
 console.log(`A divisao entre ${calc.getValor1} por ${calc.getValor2}  é igual a: ${calc.divisao()}`);
+calc.setValor1 = 2;
+calc.setValor2 = 0;
+console.log(`A divisao entre ${calc.getValor1} por ${calc.getValor2}  é igual a: ${calc.divisao()}`);
 calc.setValor1 = 10;
 calc.setValor2 = 8;
 console.log(`A subtracao de ${calc.getValor1} por ${calc.getValor2}  é igual a: ${calc.subtracao()}`);
@@ -87,3 +89,52 @@ console.log(`A multiplicacao de ${calc.getValor1} por ${calc.getValor2}  é igua
 calc.setValor1 = 20;
 calc.setValor2 = 65;
 console.log(`${calc.getValor1}% de ${calc.getValor2} é: ${calc.porcentagem()}`);
+//Exercicio 3
+class Produto {
+    constructor(nome, preco, quantidadeEmEstoque) {
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidadeEmEstoque = quantidadeEmEstoque;
+    }
+    get getNome() {
+        return this.nome;
+    }
+    set setNome(nome) {
+        this.nome = nome;
+    }
+    get getPreco() {
+        return this.preco;
+    }
+    set setPreco(preco) {
+        this.preco = preco;
+    }
+    get getQuantidadeEmEstoque() {
+        return this.quantidadeEmEstoque;
+    }
+    set setQuantidadeEmEstoque(quantidadeEmEstoque) {
+        this.quantidadeEmEstoque = quantidadeEmEstoque;
+    }
+    calcularValorTotalEstoque() {
+        return this.preco * this.quantidadeEmEstoque;
+    }
+    reporEstoque(quantidade) {
+        return this.quantidadeEmEstoque += quantidade;
+    }
+    vender(quantidade) {
+        if (quantidade < this.quantidadeEmEstoque) {
+            console.log(`Garrafas vendidas com sucesso`);
+            return this.quantidadeEmEstoque -= quantidade;
+        }
+        else {
+            return "Estoque insuficiente";
+        }
+    }
+}
+let garrafinha = new Produto("Garrafinha verde do hulk", 20.00, 50);
+console.log(garrafinha.vender(2));
+console.log(garrafinha.vender(50));
+console.log(garrafinha.reporEstoque(20));
+console.log(garrafinha.calcularValorTotalEstoque());
+garrafinha.setPreco = 25;
+garrafinha.setQuantidadeEmEstoque = 80;
+console.log(garrafinha.calcularValorTotalEstoque());
