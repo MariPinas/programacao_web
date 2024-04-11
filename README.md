@@ -20,5 +20,7 @@ coloca colchetes por fora para indicar que vai ser uma lista
     }
 ]
 
+Aula 8
 - get não tem body
 - json é um arquivo de texto estruturado
+- API REST utiliza protocolo http
