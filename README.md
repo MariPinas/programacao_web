@@ -21,3 +21,4 @@ coloca colchetes por fora para indicar que vai ser uma lista
 ]
 
 - get não tem body
+- json é um arquivo de texto estruturado
