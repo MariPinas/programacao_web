@@ -19,3 +19,5 @@ coloca colchetes por fora para indicar que vai ser uma lista
         "preco": 13.99
     }
 ]
+
+- get não tem body
