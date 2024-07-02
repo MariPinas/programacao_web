@@ -45,7 +45,7 @@ export class VendaService{
         }
 
         const novaVenda = new VendaPaes(cpf, resumoVenda, total)
-        //return this.vendaRepository.insereVenda(novaVenda);?????????????
+        //return this.vendaRepository.insereVenda(novaVenda);?????????
     }
 
 }
