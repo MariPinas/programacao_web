@@ -1,4 +1,4 @@
-
+/*
 import { VendaPaes } from "../model/VendaPaes";
 import { VendaRepository } from "../repository/VendaRepository";
 import { itemVenda } from "../model/ItemVenda";
@@ -48,4 +48,4 @@ export class VendaService{
         return this.vendaRepository.insereVenda(novaVenda);
     }
 
-}
+}*/
