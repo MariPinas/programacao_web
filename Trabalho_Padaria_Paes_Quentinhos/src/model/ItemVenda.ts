@@ -6,7 +6,7 @@ export class itemVenda{
         quantidade : number;
 
 
-        constructor(estoquePaes:number, quantidade:number, nome : string){
+        constructor(estoquePaesId:number, quantidade:number){
             this.quantidade = quantidade;
             this.estoquePaesId = this.geraId();
         }
