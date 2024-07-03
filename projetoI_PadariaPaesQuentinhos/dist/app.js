@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const ModalidadeController_1 = require("./controller/ModalidadeController");
 const EstoqueController_1 = require("./controller/EstoqueController");
+const VendaController_1 = require("./controller/VendaController");
 const app = (0, express_1.default)();
 const PORT = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000;
 app.use(express_1.default.json());
@@ -24,5 +25,7 @@ app.post('/api/estoque', EstoqueController_1.adicionaItem);
 app.get('/api/estoque/todos', EstoqueController_1.listaEstoques);
 app.get('/api/estoque/:id', EstoqueController_1.pesquisarNoEstoque);
 app.put('/api/estoque', EstoqueController_1.atualizarEstoque);
+app.delete('/api/estoque', EstoqueController_1.deletarQuantidade);
 //Area Venda
+app.post('/api/venda', VendaController_1.realizarVenda);
 app.listen(PORT, logInfo);

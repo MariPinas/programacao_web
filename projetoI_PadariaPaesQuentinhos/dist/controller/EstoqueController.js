@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.atualizarEstoque = exports.deletarEstoque = exports.listaEstoques = exports.pesquisarNoEstoque = exports.adicionaItem = void 0;
+exports.atualizarEstoque = exports.deletarQuantidade = exports.listaEstoques = exports.pesquisarNoEstoque = exports.adicionaItem = void 0;
 const EstoqueService_1 = require("../service/EstoqueService");
 const estoqueService = new EstoqueService_1.EstoqueService();
 //checar se modalidade ainda existe
@@ -54,16 +54,32 @@ function listaEstoques(req, res) {
 }
 exports.listaEstoques = listaEstoques;
 ;
-function deletarEstoque(req, res) {
+function deletarQuantidade(req, res) {
     try {
-        estoqueService.deletarEstoque(req.body.id, req.body.modalidadeId, req.body.quantidade);
-        res.status(200).json({ message: "Estoque deletado com sucesso!" });
+        const id = parseInt(req.body.id);
+        console.log("ID: ", id);
+        const item = estoqueService.consultarItemPorID(id);
+        if (item) {
+            const resultado = estoqueService.deletarEstoque(req.body);
+            if (resultado) {
+                res.status(200).json({
+                    message: "Quantidade deletada:",
+                    quantidadeDeletada: req.body.quantidadeDeletar
+                });
+            }
+            else {
+                res.status(400).json({ mensagem: "A quantidade que voce selecionou eh maior do que a existente no estoque..." });
+            }
+        }
+        else {
+            res.status(400).json({ mensagem: "Item não encontrado. " });
+        }
     }
     catch (error) {
         res.status(400).json({ message: error.message });
     }
 }
-exports.deletarEstoque = deletarEstoque;
+exports.deletarQuantidade = deletarQuantidade;
 ;
 function atualizarEstoque(req, res) {
     try {
@@ -72,7 +88,7 @@ function atualizarEstoque(req, res) {
         const item = estoqueService.consultarItemPorID(id);
         if (item) {
             const novoEstoque = estoqueService.atualizarEstoque(req.body);
-            res.status(201).json({
+            res.status(200).json({
                 mensagem: "Estoque atualizado com sucesso!",
                 Estoque: novoEstoque,
             });
