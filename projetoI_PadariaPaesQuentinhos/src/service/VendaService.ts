@@ -25,7 +25,7 @@ export class VendaService{
 
         for(const item of itens){
             const estoqueItem = globalData.estoqueList.find((estoque) => estoque.id === item.estoquePaesID);
-            const nomeItem = globalData.modalidadeList.find((modalidade):any => modalidade.name === item.nome);
+            const nomeItem = globalData.modalidadeList.find((modalidade):any => modalidade.id === estoqueItem?.id);
 
             if(!estoqueItem){
                 throw new Error (`Item com ID ${item.estoquePaesID} não encontrado`);
@@ -54,5 +54,14 @@ export class VendaService{
         return this.vendaRepository.insereVenda(novaVenda);
     }
 
+    recuperarVenda(id:any): VendaPaes|undefined{
+        if(id){
+           const idNumber: number = parseInt(id, 10);
+           console.log("Checando Venda pelo ID: ", idNumber);
+           return this.vendaRepository.filtraVendaPorId(idNumber);
+       }
+       console.log(id)
+       return undefined;
+   }
  
 }

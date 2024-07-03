@@ -16,11 +16,18 @@ export function realizarVenda(req: Request, res: Response) {
 
 export function pesquisarVenda(req: Request, res: Response){
     try {
-        const novaVenda = vendaService.inserirVenda(req.body);
-        return res.status(200).json({novaVenda});
-
+        const Venda = vendaService.recuperarVenda(req.params.id);
+        if(Venda){
+        res.status(200).json(
+            {
+                mensagem:"Venda encontrada com sucesso!",
+                venda:Venda
+            }
+            );
+        }else{
+            res.status(404).json({mensagem:"venda não encontrado."});
+        }
     } catch (error: any) {
-        
-        return res.status(400).json({ erro: error.message });
+        res.status(400).json({ message: error.message});
     }
-}
+};

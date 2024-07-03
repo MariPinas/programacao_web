@@ -7,5 +7,8 @@ class VendaRepository {
         globalData_1.globalData.vendaPaesList.push(novaVenda);
         return novaVenda;
     }
+    filtraVendaPorId(id) {
+        return globalData_1.globalData.vendaPaesList.find(venda => venda.idVenda === id);
+    }
 }
 exports.VendaRepository = VendaRepository;

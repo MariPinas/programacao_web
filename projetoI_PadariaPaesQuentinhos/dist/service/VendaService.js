@@ -22,7 +22,7 @@ class VendaService {
         let total = 0;
         for (const item of itens) {
             const estoqueItem = globalData_1.globalData.estoqueList.find((estoque) => estoque.id === item.estoquePaesID);
-            const nomeItem = globalData_1.globalData.modalidadeList.find((modalidade) => modalidade.name === item.nome);
+            const nomeItem = globalData_1.globalData.modalidadeList.find((modalidade) => modalidade.id === (estoqueItem === null || estoqueItem === void 0 ? void 0 : estoqueItem.id));
             if (!estoqueItem) {
                 throw new Error(`Item com ID ${item.estoquePaesID} não encontrado`);
             }
@@ -39,6 +39,15 @@ class VendaService {
         }
         const novaVenda = new VendaPaes_1.VendaPaes(cpf, resumoVenda, total);
         return this.vendaRepository.insereVenda(novaVenda);
+    }
+    recuperarVenda(id) {
+        if (id) {
+            const idNumber = parseInt(id, 10);
+            console.log("Checando Venda pelo ID: ", idNumber);
+            return this.vendaRepository.filtraVendaPorId(idNumber);
+        }
+        console.log(id);
+        return undefined;
     }
 }
 exports.VendaService = VendaService;

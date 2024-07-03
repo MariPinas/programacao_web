@@ -9,4 +9,8 @@ export class VendaRepository{
         return novaVenda;
        
     }
+
+    filtraVendaPorId(id:number): VendaPaes|undefined{
+        return globalData.vendaPaesList.find(venda => venda.idVenda === id);
+    }
 }
