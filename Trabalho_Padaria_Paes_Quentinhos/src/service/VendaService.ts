@@ -54,5 +54,5 @@ export class VendaService{
         return this.vendaRepository.insereVenda(novaVenda);
     }
 
-
+ 
 }
