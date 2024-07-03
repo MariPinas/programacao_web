@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VendaPaes = void 0;
+let contador = 0;
 class VendaPaes {
     constructor(cpf, itens, total) {
         this.cpf = cpf;
@@ -9,7 +10,7 @@ class VendaPaes {
         this.idVenda = this.geraId();
     }
     geraId() {
-        return Date.now();
+        return ++contador;
     }
 }
 exports.VendaPaes = VendaPaes;

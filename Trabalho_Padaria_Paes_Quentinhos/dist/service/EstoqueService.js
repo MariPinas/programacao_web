@@ -43,12 +43,21 @@ class EstoqueService {
     getEstoques(ordem) {
         return this.estoqueRepository.filtraTodosEstoques().sort((a, b) => a.id - b.id);
     }
-    deletarEstoque(id, modalidadeID, quantidade) {
-        const Estoque = this.consultarItemPorID(id);
-        if (!Estoque) {
-            throw new Error("Estoque não encontrado");
+    deletarEstoque(itemData) {
+        const { id, modalidadeId, quantidadeDeletar } = itemData;
+        if (!id || !modalidadeId || !quantidadeDeletar) {
+            throw new Error("Informações incompletas");
         }
-        this.estoqueRepository.deletaEstoque(Estoque);
+        let EstoqueEncontrado = this.consultarItemPorID(id);
+        if (!EstoqueEncontrado) {
+            throw new Error("Produto não cadastrado!!!");
+        }
+        else if (EstoqueEncontrado.quantidade < quantidadeDeletar) {
+            throw new Error(`Quantidade solicitada ultrapassa a quantidade em estoque do item ${EstoqueEncontrado.modalidadeID}`);
+        }
+        EstoqueEncontrado.quantidade -= quantidadeDeletar;
+        this.estoqueRepository.atualizaEstoque(EstoqueEncontrado);
+        return EstoqueEncontrado;
     }
     atualizarEstoque(EstoqueData) {
         const { id, modalidadeId, quantidade, precoVenda } = EstoqueData;

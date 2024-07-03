@@ -1,5 +1,5 @@
 import { itemVenda } from "./ItemVenda";
-
+let contador:number = 0;
 export class VendaPaes {
     idVenda:number;
     cpf: number;
@@ -12,7 +12,7 @@ export class VendaPaes {
         this.total = total;
         this.idVenda = this.geraId();
     }
-    private geraId():number{
-        return Date.now();
+    private geraId(): number {
+        return ++contador;
     }
 }

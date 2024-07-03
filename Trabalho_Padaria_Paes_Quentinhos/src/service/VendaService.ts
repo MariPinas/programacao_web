@@ -1,4 +1,4 @@
-/*
+
 import { VendaPaes } from "../model/VendaPaes";
 import { VendaRepository } from "../repository/VendaRepository";
 import { itemVenda } from "../model/ItemVenda";
@@ -14,7 +14,7 @@ export class VendaService{
             throw new Error("Informações incompletas");
         }
 
-       const novaVenda = this.processarVenda(cpf, itens);
+        const novaVenda = this.processarVenda(cpf, itens);
         return novaVenda;
     }
 
@@ -25,13 +25,17 @@ export class VendaService{
 
         for(const item of itens){
             const estoqueItem = globalData.estoqueList.find((estoque) => estoque.id === item.estoquePaesID);
+            const nomeItem = globalData.modalidadeList.find((modalidade):any => modalidade.name === item.nome);
 
             if(!estoqueItem){
                 throw new Error (`Item com ID ${item.estoquePaesID} não encontrado`);
-                
+            }
+            
+            if (!nomeItem) {
+                throw new Error(`Nome de item '${item.nome}' não encontrado em modalidades`);
             }
 
-            if(estoqueItem.quantidade > item.quantidade) {
+            if(estoqueItem.quantidade < item.quantidade) {
                 throw new Error (`Quantidade solicitada ultrapassa a quantidade em estoque do item ${estoqueItem.modalidadeID}`);
             }
 
@@ -39,8 +43,10 @@ export class VendaService{
             estoqueItem.quantidade -= quantidadeVenda;
             total += quantidadeVenda * estoqueItem.precoVenda;
 
+    
             resumoVenda.push(
-                new itemVenda(estoqueItem.id, quantidadeVenda)
+                new itemVenda(
+                    estoqueItem.id, quantidadeVenda, nomeItem.name)
             );
         }
 
@@ -48,4 +54,5 @@ export class VendaService{
         return this.vendaRepository.insereVenda(novaVenda);
     }
 
-}*/
+
+}
