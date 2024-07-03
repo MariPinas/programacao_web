@@ -55,10 +55,24 @@ export function listaEstoques (req: Request, res: Response){
     }
 };
 
-export function deletarEstoque(req: Request, res: Response){
+export function deletarQuantidade(req: Request, res: Response){
     try{
-        estoqueService.deletarEstoque(req.body.id, req.body.modalidadeId, req.body.quantidade);
-        res.status(200).json({message: "Estoque deletado com sucesso!"});
+        const id = parseInt(req.body.id);
+        console.log("ID: ", id);
+        const item = estoqueService.consultarItemPorID(id);
+        if(item){
+            const resultado = estoqueService.deletarEstoque(req.body);
+            if(resultado){
+                res.status(200).json({
+                    message: "Quantidade deletada:",
+                    quantidadeDeletada: req.body.quantidadeDeletar
+                });
+            }else{
+                res.status(400).json({ mensagem: "A quantidade que voce selecionou eh maior do que a existente no estoque..." });
+            }
+        }else{
+            res.status(400).json({ mensagem: "Item não encontrado. " });
+        }
     }catch(error:any){
         res.status(400).json({message: error.message})
     }
@@ -71,7 +85,7 @@ export function atualizarEstoque (req: Request, res: Response){
         const item = estoqueService.consultarItemPorID(id);
         if(item){
         const novoEstoque = estoqueService.atualizarEstoque(req.body);
-        res.status(201).json(
+        res.status(200).json(
             {
                 mensagem:"Estoque atualizado com sucesso!",
                 Estoque:novoEstoque,
