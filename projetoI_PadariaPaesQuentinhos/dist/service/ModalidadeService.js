@@ -26,7 +26,6 @@ class ModalidadeService {
             console.log("Checando modalidade pelo ID: ", idNumber);
             return this.productRepository.filtraModalidadePorId(idNumber);
         }
-        console.log(id);
         return undefined;
     }
     getModalidades(ordem) {
