@@ -25,7 +25,7 @@ export class VendaService{
 
         for(const item of itens){
             const estoqueItem = globalData.estoqueList.find((estoque) => estoque.id === item.estoquePaesID);
-            const nomeItem = globalData.modalidadeList.find((modalidade):any => modalidade.id === estoqueItem?.id);
+            const nomeItem = globalData.modalidadeList.find((modalidade):any => modalidade.id === estoqueItem?.modalidadeID);
 
             if(!estoqueItem){
                 throw new Error (`Item com ID ${item.estoquePaesID} não encontrado`);
