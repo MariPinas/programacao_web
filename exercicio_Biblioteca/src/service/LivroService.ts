@@ -1,24 +1,24 @@
 import { isNumericLiteral } from "typescript";
-import { Product } from "../model/Livro";
-import { ProductRepository } from "../repository/LivroRepository";
+import { Livro } from "../model/Livro";
+import { LivroRepository } from "../repository/LivroRepository";
 
-export class ProductService{
+export class LivroService{
 
-    productRepository: ProductRepository = new ProductRepository();
+    livroRepository: LivroRepository = new LivroRepository();
 
-    async cadastrarProduto(produtoData: any): Promise<Product> {
-        const { name, price } = produtoData;
-        if(!name || !price ){
+    async cadastrarLivro(LivroData: any): Promise<Livro> {
+        const { title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
+        if(!title || !author|| !publishedDate || !isbn || !pages|| !language || !publisher){
             throw new Error("Informações incompletas");
         }
 
-        const novoProduto =  await this.productRepository.insertProduct(name, price);
-        console.log("Service - Insert ", novoProduto);
-        return novoProduto;
+        const novoLivro =  await this.livroRepository.insertLivro(title, author, publishedDate, isbn, pages, language, publisher);
+        console.log("Service - Insert ", novoLivro);
+        return novoLivro;
     }
 
-    async atualizarProduto(produtoData: any): Promise<Product> {
-        const { id, name, price } = produtoData;
+    async atualizarLivro(LivroData: any): Promise<Livro> {
+        const { id, name, price } = LivroData;
         if(!name || !price || !id){
             throw new Error("Informações incompletas");
         }
@@ -34,42 +34,42 @@ export class ProductService{
             throw new Error("price não é do tipo number");
         }
 
-        //let produto = this.consultarProduto();
-       /* if(!produto){
-            throw new Error("Produto não cadastrada!!!");
+        //let Livro = this.consultarLivro();
+       /* if(!Livro){
+            throw new Error("Livro não cadastrada!!!");
         }
         */
-        const produto =  await this.productRepository.updateProduct(id,name, price);
-        console.log("Service - Update ", produto);
-        return produto;
+        const livro =  await this.livroRepository.updateLivro(id,name, price);
+        console.log("Service - Update ", livro);
+        return livro;
     }
 
-    async deletarProduto(produtoData: any): Promise<Product> {
-        const { id, name, price } = produtoData;
+    async deletarLivro(LivroData: any): Promise<Livro> {
+        const { id, name, price } = LivroData;
         if(!name || !price || !id ){
             throw new Error("Informações incompletas");
         }
 
-        const produto =  await this.productRepository.deleteProduct(id,name, price);
-        console.log("Service - Delete ", produto);
-        return produto;
+        const livro =  await this.livroRepository.deleteLivro(id,name, price);
+        console.log("Service - Delete ", livro);
+        return livro;
     }
 
-    async filtrarProduto(produtoData: any): Promise<Product> {
-        if(!produtoData ){
+    async filtrarLivro(LivroData: any): Promise<Livro> {
+        if(!LivroData ){
             throw new Error("Informações incompletas");
         }
-        const id = parseInt(produtoData, 10);
+        const id = parseInt(LivroData, 10);
 
-        const produto =  await this.productRepository.filterProduct(id);
-        console.log("Service - Filtrar", produto);
-        return produto;
+        const livro =  await this.livroRepository.filterLivro(id);
+        console.log("Service - Filtrar", Livro);
+        return livro;
     }
 
-    async listarTodosProdutos(): Promise<Product[]> {
-        const produto =  await this.productRepository.filterAllProduct();
-        console.log("Service - Filtrar Todos", produto);
-        return produto;
+    async listarTodosLivros(): Promise<Livro[]> {
+        const livro =  await this.livroRepository.filterAllLivro();
+        console.log("Service - Filtrar Todos", livro);
+        return livro;
     }
 
 }

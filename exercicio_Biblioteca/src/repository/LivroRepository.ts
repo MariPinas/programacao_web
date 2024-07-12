@@ -13,7 +13,7 @@ export class LivroRepository{
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             author VARCHAR(255) NOT NULL,
-            publishedDate VARCHAR(255) NOT NULL,
+            publishedDate DATE,
             isbn VARCHAR(255) NOT NULL,
             pages DECIMAL(10,2) NOT NULL,
             language VARCHAR(255) NOT NULL,
@@ -28,7 +28,7 @@ export class LivroRepository{
         }
     }
 
-    async insertLivro(title: string, author: string, publishedDate: string, isbn: string, pages: number, language: string, publisher:string) :Promise<Livro>{
+    async insertLivro(title: string, author: string, publishedDate: Date, isbn: string, pages: number, language: string, publisher:string) :Promise<Livro>{
         const query = "INSERT INTO vendas.livro (title, author, publishedDate, isbn, pages, language, publisher) VALUES (?, ?, ?, ?, ?, ?, ?)" ;
 
         try {
