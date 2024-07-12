@@ -1,6 +1,6 @@
 import { isNumericLiteral } from "typescript";
-import { Product } from "../model/Product";
-import { ProductRepository } from "../repository/ProductRepository";
+import { Product } from "../model/Livro";
+import { ProductRepository } from "../repository/LivroRepository";
 
 export class ProductService{
 
