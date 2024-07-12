@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
-import { ProductService } from "../service/LivroService";
+import { LivroService } from "../service/LivroService";
 
-const productService = new ProductService();
+const productService = new LivroService();
 
-export async function cadastrarProduto (req: Request, res: Response){
+export async function cadastrarLivro (req: Request, res: Response){
     try {
-        const novoProduto = await productService.cadastrarProduto(req.body);
+        const novoLivro = await productService.cadastrarLivro(req.body);
         res.status(201).json(
             {
-                mensagem:"Produto adicionado com sucesso!",
-                produto:novoProduto
+                mensagem:"Livro adicionado com sucesso!",
+                livro:novoLivro
             }
         );
     } catch (error: any) {
