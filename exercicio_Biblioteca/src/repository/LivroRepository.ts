@@ -12,12 +12,12 @@ export class LivroRepository{
         CREATE TABLE IF NOT EXISTS biblioteca.Livro (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
-            author VARCHAR(255) NOT NULL,
+            author VARCHAR(255),
             publishedDate DATE,
             isbn VARCHAR(255) NOT NULL,
-            pages DECIMAL(10,2) NOT NULL,
+            pages INT NOT NULL,
             language VARCHAR(255) NOT NULL,
-            publisher VARCHAR(255) NOT NULL,
+            publisher VARCHAR(255) NOT NULL
         )`;
 
         try {

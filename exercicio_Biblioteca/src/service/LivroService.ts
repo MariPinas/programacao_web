@@ -8,7 +8,8 @@ export class LivroService{
 
     async cadastrarLivro(LivroData: any): Promise<Livro> {
         const { title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
-        if(!title || !author|| !publishedDate || !isbn || !pages|| !language || !publisher){
+        console.log(title, author, publishedDate, isbn, pages, language, publisher);
+        if(!title || !author || !publishedDate || !isbn || !pages|| !language || !publisher){
             throw new Error("Informações incompletas");
         }
         const livroEncontrado = await this.livroRepository.filtrarLivroPorISBN(isbn);
