@@ -43,7 +43,7 @@ export class LivroRepository{
             throw err;
         }
     }
-
+/*
     async updateLivro(id: number, name: string, price: number) :Promise<Livro>{
         const query = "UPDATE vendas.livro set name = ?, price = ? where id = ?;" ;
 
@@ -90,6 +90,7 @@ export class LivroRepository{
             throw err;
         }
     }
+    */
     async filtrarLivroPorISBN(isbn: number) :Promise<Livro>{
         const query = "SELECT * FROM biblioteca.livro where isbn = ?" ;
 

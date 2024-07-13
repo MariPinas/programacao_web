@@ -19,7 +19,7 @@ export class LivroService{
         console.log("Service - Insert ", novoLivro);
         return novoLivro;
     }
-
+/*
     async atualizarLivro(LivroData: any): Promise<Livro> {
         const { id, name, price } = LivroData;
         if(!name || !price || !id){
@@ -38,10 +38,10 @@ export class LivroService{
         }
 
         //let Livro = this.consultarLivro();
-       /* if(!Livro){
+        if(!Livro){
             throw new Error("Livro não cadastrada!!!");
         }
-        */
+        
         const livro =  await this.livroRepository.updateLivro(id,name, price);
         console.log("Service - Update ", livro);
         return livro;
@@ -74,5 +74,5 @@ export class LivroService{
         console.log("Service - Filtrar Todos", livro);
         return livro;
     }
-
+*/
 }
