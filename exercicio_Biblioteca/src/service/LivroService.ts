@@ -11,7 +11,7 @@ export class LivroService{
         if(!title || !author|| !publishedDate || !isbn || !pages|| !language || !publisher){
             throw new Error("Informações incompletas");
         }
-        const livroEncontrado = await this.filtrarLivroPorISBN(isbn);
+        const livroEncontrado = await this.livroRepository.filtrarLivroPorISBN(isbn);
         if(livroEncontrado){
             throw new Error("Livro já cadastrado!!!");
         }
@@ -64,7 +64,7 @@ export class LivroService{
         }
         const id = parseInt(LivroData, 10);
 
-        const livro =  await this.livroRepository.filterLivro(id);
+        const livro =  await this.livroRepository.filtrarLivro(id);
         console.log("Service - Filtrar", Livro);
         return livro;
     }
