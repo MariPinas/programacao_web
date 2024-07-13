@@ -77,16 +77,30 @@ export class LivroRepository{
     }
 
     async filterLivro(id: number) :Promise<Livro>{
-        const query = "SELECT * FROM vendas.livro where id = ?" ;
+        const query = "SELECT * FROM biblioteca.livro where id = ?" ;
 
         try {
             const resultado = await executarComandoSQL(query, [id]);
-            console.log('Produto localizado com sucesso, ID: ', resultado);
+            console.log('Livro localizado com sucesso, ID: ', resultado);
             return new Promise<Livro>((resolve)=>{
                 resolve(resultado);
             })
         } catch (err:any) {
-            console.error(`Falha ao procurar o produto de ID ${id} gerando o erro: ${err}`);
+            console.error(`Falha ao procurar o livro de ID ${id} gerando o erro: ${err}`);
+            throw err;
+        }
+    }
+    async filterLivroPorISBN(isbn: number) :Promise<Livro>{
+        const query = "SELECT * FROM biblioteca.livro where isbn = ?" ;
+
+        try {
+            const resultado = await executarComandoSQL(query, [isbn]);
+            console.log('Livro foi localizado com sucesso, isbn: ', resultado);
+            return new Promise<Livro>((resolve)=>{
+                resolve(resultado);
+            })
+        } catch (err:any) {
+            console.error(`Falha ao procurar o livro de ID ${isbn} gerando o erro: ${err}`);
             throw err;
         }
     }

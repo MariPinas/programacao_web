@@ -11,7 +11,10 @@ export class LivroService{
         if(!title || !author|| !publishedDate || !isbn || !pages|| !language || !publisher){
             throw new Error("Informações incompletas");
         }
-
+        const livroEncontrado = await this.filtrarLivroPorISBN(isbn);
+        if(livroEncontrado){
+            throw new Error("Livro já cadastrado!!!");
+        }
         const novoLivro =  await this.livroRepository.insertLivro(title, author, publishedDate, isbn, pages, language, publisher);
         console.log("Service - Insert ", novoLivro);
         return novoLivro;
@@ -56,7 +59,7 @@ export class LivroService{
     }
 
     async filtrarLivro(LivroData: any): Promise<Livro> {
-        if(!LivroData ){
+        if(!LivroData){
             throw new Error("Informações incompletas");
         }
         const id = parseInt(LivroData, 10);
