@@ -43,6 +43,23 @@ export class LivroRepository{
             throw err;
         }
     }
+
+    async filtrarLivro(id: number) :Promise<Livro>{
+        const query = "SELECT * FROM biblioteca.livro where id = ?" ;
+
+        try {
+            const resultado = await executarComandoSQL(query, [id]);
+            if(resultado.length==0){
+                throw new Error("Livro não existe!!!");
+            }else{
+            console.log('Livro localizado com sucesso, ID: ', resultado);
+            return resultado;
+        }
+        } catch (err:any) {
+            console.error(`Falha ao procurar o livro de ID ${id} gerando o erro: ${err}`);
+            throw err;
+        }
+    }
 /*
     async updateLivro(id: number, name: string, price: number) :Promise<Livro>{
         const query = "UPDATE vendas.livro set name = ?, price = ? where id = ?;" ;
@@ -76,20 +93,7 @@ export class LivroRepository{
         }
     }
 
-    async filtrarLivro(id: number) :Promise<Livro>{
-        const query = "SELECT * FROM biblioteca.livro where id = ?" ;
-
-        try {
-            const resultado = await executarComandoSQL(query, [id]);
-            console.log('Livro localizado com sucesso, ID: ', resultado);
-            return new Promise<Livro>((resolve)=>{
-                resolve(resultado);
-            })
-        } catch (err:any) {
-            console.error(`Falha ao procurar o livro de ID ${id} gerando o erro: ${err}`);
-            throw err;
-        }
-    }
+    
     */
     async filtrarLivroPorISBN(isbn: number) :Promise<Livro[]>{
         const query = "SELECT * FROM biblioteca.livro where isbn = ?" ;

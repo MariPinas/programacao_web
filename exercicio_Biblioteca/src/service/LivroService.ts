@@ -27,6 +27,17 @@ export class LivroService{
         console.log("Service - Filtrar Todos", livros);
         return livros;
     }
+
+    async filtrarLivro(LivroData: any): Promise<Livro> {
+        if(!LivroData){
+            throw new Error("Informações incompletas");
+        }
+        const id = parseInt(LivroData, 10);
+
+        const livro =  await this.livroRepository.filtrarLivro(id);
+        console.log("Service - Filtrar", Livro);
+        return livro;
+    }
     
 /*
     async atualizarLivro(LivroData: any): Promise<Livro> {
@@ -67,15 +78,6 @@ export class LivroService{
         return livro;
     }
 
-    async filtrarLivro(LivroData: any): Promise<Livro> {
-        if(!LivroData){
-            throw new Error("Informações incompletas");
-        }
-        const id = parseInt(LivroData, 10);
-
-        const livro =  await this.livroRepository.filtrarLivro(id);
-        console.log("Service - Filtrar", Livro);
-        return livro;
-    }
+    
 */
 }
