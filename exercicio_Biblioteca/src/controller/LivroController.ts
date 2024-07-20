@@ -46,7 +46,7 @@ export async function filtrarLivro (req: Request, res: Response){
 
 export async function atualizarLivro (req: Request, res: Response){
     try {
-        const livro = await livroService.atualizarLivro(req.body);
+        const livro = await livroService.atualizarLivro(parseInt(req.params.id), req.body);
         res.status(200).json(
             {
                 mensagem:"Livro atualizado com sucesso!",

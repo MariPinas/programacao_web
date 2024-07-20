@@ -39,8 +39,8 @@ export class LivroService{
         return livro;
     }
     
-    async atualizarLivro(LivroData: any): Promise<Livro> {
-        const {id, title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
+    async atualizarLivro(id:number, LivroData: any): Promise<Livro> {
+        const {title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
         console.log(id, title, author, publishedDate, isbn, pages, language, publisher);
         if(!id || !title || !author || !publishedDate || !isbn || !pages|| !language || !publisher){
             throw new Error("Informações incompletas");
