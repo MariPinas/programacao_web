@@ -1,5 +1,5 @@
 import express from 'express';
-import { cadastrarLivro } from './controller/LivroController';
+import { cadastrarLivro, listarTodosLivros } from './controller/LivroController';
 
 const app = express();
 
@@ -11,6 +11,6 @@ app.post("/api/books", cadastrarLivro);
 //app.put("/api/product", atualizarProduto)
 //app.delete("/api/product", deletarProduto)
 //app.get("/api/product", filtrarProduto)
-//app.get("/api/products", listarTodosProduto)
+app.get("/api/books", listarTodosLivros)
 
 app.listen(PORT, ()=> console.log("API online na porta: " + PORT));

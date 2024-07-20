@@ -9,7 +9,7 @@ export class LivroRepository{
 
     private async createTable() {
         const query = `
-        CREATE TABLE IF NOT EXISTS biblioteca.Livro (
+        CREATE TABLE IF NOT EXISTS biblioteca.livro (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             author VARCHAR(255),
@@ -29,7 +29,7 @@ export class LivroRepository{
     }
 
     async insertLivro(title: string, author: string, publishedDate: Date, isbn: string, pages: number, language: string, publisher:string) :Promise<Livro>{
-        const query = "INSERT INTO vendas.livro (title, author, publishedDate, isbn, pages, language, publisher) VALUES (?, ?, ?, ?, ?, ?, ?)" ;
+        const query = "INSERT INTO biblioteca.livro (title, author, publishedDate, isbn, pages, language, publisher) VALUES (?, ?, ?, ?, ?, ?, ?)" ;
 
         try {
             const resultado = await executarComandoSQL(query, [title, author, publishedDate, isbn, pages, language, publisher]);
@@ -91,15 +91,13 @@ export class LivroRepository{
         }
     }
     */
-    async filtrarLivroPorISBN(isbn: number) :Promise<Livro>{
+    async filtrarLivroPorISBN(isbn: number) :Promise<Livro[]>{
         const query = "SELECT * FROM biblioteca.livro where isbn = ?" ;
 
         try {
             const resultado = await executarComandoSQL(query, [isbn]);
             console.log('Livro foi localizado com sucesso, isbn: ', resultado);
-            return new Promise<Livro>((resolve)=>{
-                resolve(resultado);
-            })
+            return resultado;
         } catch (err:any) {
             console.error(`Falha ao procurar o livro de isbn ${isbn} gerando o erro: ${err}`);
             throw err;
@@ -107,7 +105,7 @@ export class LivroRepository{
     }
 
     async filterAllLivro() :Promise<Livro[]>{
-        const query = "SELECT * FROM vendas.livro" ;
+        const query = "SELECT * FROM biblioteca.livro" ;
 
         try {
             const resultado = await executarComandoSQL(query, []);

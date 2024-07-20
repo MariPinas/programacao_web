@@ -1,4 +1,3 @@
-import { isNumericLiteral } from "typescript";
 import { Livro } from "../model/Livro";
 import { LivroRepository } from "../repository/LivroRepository";
 
@@ -12,14 +11,23 @@ export class LivroService{
         if(!title || !author || !publishedDate || !isbn || !pages|| !language || !publisher){
             throw new Error("Informações incompletas");
         }
-        const livroEncontrado = await this.livroRepository.filtrarLivroPorISBN(isbn);
-        if(livroEncontrado){
+        const livroEncontrado = await this.livroRepository.filtrarLivroPorISBN(LivroData.isbn);
+        if(livroEncontrado.length==0){
+            const novoLivro =  await this.livroRepository.insertLivro(title, author, publishedDate, isbn, pages, language, publisher);
+            console.log("Service - Insert ", novoLivro);
+            return novoLivro;
+        }else{
             throw new Error("Livro já cadastrado!!!");
         }
-        const novoLivro =  await this.livroRepository.insertLivro(title, author, publishedDate, isbn, pages, language, publisher);
-        console.log("Service - Insert ", novoLivro);
-        return novoLivro;
+        
     }
+
+    async listarTodosLivros(): Promise<Livro[]> {
+        const livros =  await this.livroRepository.filterAllLivro();
+        console.log("Service - Filtrar Todos", livros);
+        return livros;
+    }
+    
 /*
     async atualizarLivro(LivroData: any): Promise<Livro> {
         const { id, name, price } = LivroData;
@@ -67,12 +75,6 @@ export class LivroService{
 
         const livro =  await this.livroRepository.filtrarLivro(id);
         console.log("Service - Filtrar", Livro);
-        return livro;
-    }
-
-    async listarTodosLivros(): Promise<Livro[]> {
-        const livro =  await this.livroRepository.filterAllLivro();
-        console.log("Service - Filtrar Todos", livro);
         return livro;
     }
 */
