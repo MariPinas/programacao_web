@@ -1,5 +1,5 @@
 import express from 'express';
-import { cadastrarLivro, listarTodosLivros, filtrarLivro } from './controller/LivroController';
+import { cadastrarLivro, listarTodosLivros, filtrarLivro, atualizarLivro } from './controller/LivroController';
 
 const app = express();
 
@@ -8,7 +8,7 @@ const PORT = 3000;
 app.use(express.json());
 
 app.post("/api/books", cadastrarLivro);
-//app.put("/api/product", atualizarProduto)
+app.put("/api/books", atualizarLivro)
 //app.delete("/api/product", deletarProduto)
 app.get("/api/books/:id", filtrarLivro)
 app.get("/api/books", listarTodosLivros)

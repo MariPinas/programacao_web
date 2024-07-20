@@ -39,6 +39,22 @@ export class LivroService{
         return livro;
     }
     
+    async atualizarLivro(LivroData: any): Promise<Livro> {
+        const {id, title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
+        console.log(id, title, author, publishedDate, isbn, pages, language, publisher);
+        if(!id || !title || !author || !publishedDate || !isbn || !pages|| !language || !publisher){
+            throw new Error("Informações incompletas");
+        }
+
+        let Livro = this.filtrarLivro(id);
+        if(!Livro){
+            throw new Error("Livro não cadastrada!!!");
+        }
+        
+        const livro =  await this.livroRepository.updateLivro(id, title, author, publishedDate, isbn, pages, language, publisher);
+        console.log("Service - Update ", livro);
+        return livro;
+    }
 /*
     async atualizarLivro(LivroData: any): Promise<Livro> {
         const { id, name, price } = LivroData;

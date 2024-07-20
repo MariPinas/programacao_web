@@ -60,6 +60,22 @@ export class LivroRepository{
             throw err;
         }
     }
+
+    async updateLivro(id: number, title: string, author: string, publishedDate: Date, isbn: string, pages: number, language: string, publisher:string) :Promise<Livro>{
+        const query = "UPDATE biblioteca.livro set title = ?, author = ?, publishedDate = ?, isbn = ?, pages = ?, language = ?, publisher = ? where id = ?;" ;
+
+        try {
+            const resultado = await executarComandoSQL(query, [title, author, publishedDate, isbn, pages, language, publisher, id]);
+            console.log('Produto atualizado com sucesso, ID: ', resultado);
+            const livro = new Livro(id, title, author, publishedDate, isbn, pages, language, publisher);
+            return new Promise<Livro>((resolve)=>{
+                resolve(livro);
+            })
+        } catch (err:any) {
+            console.error('Erro ao atualizar o livro:', err);
+            throw err;
+        }
+    }
 /*
     async updateLivro(id: number, name: string, price: number) :Promise<Livro>{
         const query = "UPDATE vendas.livro set name = ?, price = ? where id = ?;" ;
