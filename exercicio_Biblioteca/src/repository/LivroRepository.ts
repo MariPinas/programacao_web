@@ -66,7 +66,7 @@ export class LivroRepository{
 
         try {
             const resultado = await executarComandoSQL(query, [title, author, publishedDate, isbn, pages, language, publisher, id]);
-            console.log('Produto atualizado com sucesso, ID: ', resultado);
+            console.log('Livro atualizado com sucesso, ID: ', resultado);
             const livro = new Livro(id, title, author, publishedDate, isbn, pages, language, publisher);
             return new Promise<Livro>((resolve)=>{
                 resolve(livro);
@@ -76,41 +76,23 @@ export class LivroRepository{
             throw err;
         }
     }
-/*
-    async updateLivro(id: number, name: string, price: number) :Promise<Livro>{
-        const query = "UPDATE vendas.livro set name = ?, price = ? where id = ?;" ;
+
+    async deleteLivro(id: number, title: string, author: string, publishedDate: Date, isbn: string, pages: number, language: string, publisher:string) :Promise<Livro>{
+        const query = "DELETE FROM biblioteca.livro where id = ? and title = ? and author = ? and publishedDate = ? and isbn = ? and pages = ? and language = ? and publisher = ?;" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [name, price, id]);
-            console.log('Produto atualizado com sucesso, ID: ', resultado);
-            const livro = new Livro(id, name, price);
+            const resultado = await executarComandoSQL(query, [id, title, author, publishedDate, isbn, pages, language, publisher]);
+            console.log('Livro deletado com sucesso, ID: ', resultado);
+            const livro = new Livro(id, title, author, publishedDate, isbn, pages, language, publisher);
             return new Promise<Livro>((resolve)=>{
                 resolve(livro);
             })
         } catch (err:any) {
-            console.error(`Erro ao atualizar o produto de ID ${id} gerando o erro: ${err}`);
+            console.error(`Falha ao deletar o livro de ID ${id} gerando o erro: ${err}`);
             throw err;
         }
     }
 
-    async deleteLivro(id: number, name:string, price:number) :Promise<Livro>{
-        const query = "DELETE FROM vendas.livro where id = ?;" ;
-
-        try {
-            const resultado = await executarComandoSQL(query, [id]);
-            console.log('Produto deletado com sucesso, ID: ', resultado);
-            const livro = new Livro(id, name, price);
-            return new Promise<Livro>((resolve)=>{
-                resolve(livro);
-            })
-        } catch (err:any) {
-            console.error(`Falha ao deletar o produto de ID ${id} gerando o erro: ${err}`);
-            throw err;
-        }
-    }
-
-    
-    */
     async filtrarLivroPorISBN(isbn: number) :Promise<Livro[]>{
         const query = "SELECT * FROM biblioteca.livro where isbn = ?" ;
 

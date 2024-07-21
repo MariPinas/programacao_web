@@ -57,35 +57,18 @@ export async function atualizarLivro (req: Request, res: Response){
         res.status(400).json({ message: error.message});
     }
 };
-/*
 
-
-export async function deletarProduto (req: Request, res: Response){
+export async function deletarLivro (req: Request, res: Response){
     try {
-        const produto = await productService.deletarProduto(req.body);
+        const livro = await livroService.deletarLivro(parseInt(req.params.id), req.body);
         res.status(200).json(
             {
-                mensagem:"Produto deletado com sucesso!",
-                produto:produto
+                message: " Book deleted successfully "
             }
         );
     } catch (error: any) {
         res.status(400).json({ message: error.message});
     }
 };
-
-
-
-export async function listarTodosProduto (req: Request, res: Response){
-    try {
-        const produtos = await productService.listarTodosProdutos();
-        res.status(200).json(
-            {
-                mensagem:"Produtos listados com sucesso!",
-                produtos:produtos
-            }
-            );
-    } catch (error: any) {
-    }
-};
+/*
 */

@@ -55,45 +55,16 @@ export class LivroService{
         console.log("Service - Update ", livro);
         return livro;
     }
-/*
-    async atualizarLivro(LivroData: any): Promise<Livro> {
-        const { id, name, price } = LivroData;
-        if(!name || !price || !id){
+
+    async deletarLivro(id:number, LivroData: any): Promise<Livro> {
+        const {title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
+        console.log(id, title, author, publishedDate, isbn, pages, language, publisher);
+        if(!id || !title || !author || !publishedDate || !isbn || !pages|| !language || !publisher){
             throw new Error("Informações incompletas");
         }
 
-        if(name != (typeof name == "string")){
-            console.log("Service - update", name)
-            throw new Error("Nome não é do tipo string");
-        }else if(id != (typeof name == "number")){
-            console.log("Service - update", id);
-            throw new Error("ID não é do tipo number");
-        }else if(price != (typeof name == "number")){
-            console.log("Service - update", price);
-            throw new Error("price não é do tipo number");
-        }
-
-        //let Livro = this.consultarLivro();
-        if(!Livro){
-            throw new Error("Livro não cadastrada!!!");
-        }
-        
-        const livro =  await this.livroRepository.updateLivro(id,name, price);
-        console.log("Service - Update ", livro);
-        return livro;
-    }
-
-    async deletarLivro(LivroData: any): Promise<Livro> {
-        const { id, name, price } = LivroData;
-        if(!name || !price || !id ){
-            throw new Error("Informações incompletas");
-        }
-
-        const livro =  await this.livroRepository.deleteLivro(id,name, price);
+        const livro =  await this.livroRepository.deleteLivro(id, title, author, publishedDate, isbn, pages, language, publisher);
         console.log("Service - Delete ", livro);
         return livro;
     }
-
-    
-*/
 }
