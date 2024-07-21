@@ -34,9 +34,15 @@ export class LivroService{
         }
         const id = parseInt(LivroData, 10);
 
-        const livro =  await this.livroRepository.filtrarLivro(id);
+        const livroEncontrado =  await this.livroRepository.filtrarLivro(id);
         console.log("Service - Filtrar", Livro);
-        return livro;
+        if (livroEncontrado){
+            console.log('Livro foi localizado com sucesso, id: ', livroEncontrado);
+            return livroEncontrado;
+        }else{
+            throw new Error("404 Not Found - Nao foi encontrado este livro!!!");
+        }
+        
     }
     
     async atualizarLivro(id:number, LivroData: any): Promise<Livro> {
