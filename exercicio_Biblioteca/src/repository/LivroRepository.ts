@@ -50,7 +50,7 @@ export class LivroRepository{
         try {
             const resultado = await executarComandoSQL(query, [id]);
             if(resultado.length==0){
-                throw new Error("Não existe livro com este ID!!!");
+                throw new Error("404 Not Found - Não existe livro com este ID!!!");
             }else{
                 console.log('Livro localizado com sucesso, ID: ', resultado);
                 return resultado;
@@ -112,7 +112,7 @@ export class LivroRepository{
         try {
             const resultado = await executarComandoSQL(query, []);
             if(resultado.length==0){
-                throw new Error("Não existem livros cadastrados!!!");
+                throw new Error("404 Not Found - Não existem livros cadastrados!!!");
             }else{
                 return new Promise<Livro[]>((resolve)=>{
                     resolve(resultado);

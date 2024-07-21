@@ -9,7 +9,7 @@ export class LivroService{
         const { title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
         console.log(title, author, publishedDate, isbn, pages, language, publisher);
         if(!title || !author || !publishedDate || !isbn || !pages|| !language || !publisher){
-            throw new Error("Informações incompletas");
+            throw new Error("400 Bad Request - Informações incompletas");
         }
         const livroEncontrado = await this.livroRepository.filtrarLivroPorISBN(LivroData.isbn);
         if(livroEncontrado.length==0){
@@ -17,7 +17,7 @@ export class LivroService{
             console.log("Service - Insert ", novoLivro);
             return novoLivro;
         }else{
-            throw new Error("Livro com este ISBN já foi cadastrado!!!");
+            throw new Error("409 Conflict - Livro com este ISBN já foi cadastrado!!!");
         }
         
     }
@@ -30,7 +30,7 @@ export class LivroService{
 
     async filtrarLivro(LivroData: any): Promise<Livro> {
         if(!LivroData){
-            throw new Error("Informações incompletas");
+            throw new Error("400 Bad Request - Informações incompletas");
         }
         const id = parseInt(LivroData, 10);
 
@@ -49,12 +49,12 @@ export class LivroService{
         const {title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
         console.log(id, title, author, publishedDate, isbn, pages, language, publisher);
         if(!id || !title || !author || !publishedDate || !isbn || !pages|| !language || !publisher){
-            throw new Error("Informações incompletas");
+            throw new Error("400 Bad Request - Informações incompletas");
         }
 
         let Livro = this.filtrarLivro(id);
         if(!Livro){
-            throw new Error("Livro não cadastrada!!!");
+            throw new Error("404 Not Found - Livro não cadastrado!!!");
         }
         
         const livro =  await this.livroRepository.updateLivro(id, title, author, publishedDate, isbn, pages, language, publisher);
@@ -66,7 +66,7 @@ export class LivroService{
         const {title, author, publishedDate, isbn, pages, language, publisher} = LivroData;
         console.log(id, title, author, publishedDate, isbn, pages, language, publisher);
         if(!id || !title || !author || !publishedDate || !isbn || !pages|| !language || !publisher){
-            throw new Error("Informações incompletas");
+            throw new Error("400 Bad Request - Informações incompletas");
         }
 
         const livro =  await this.livroRepository.deleteLivro(id, title, author, publishedDate, isbn, pages, language, publisher);
