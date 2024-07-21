@@ -17,7 +17,7 @@ export class LivroService{
             console.log("Service - Insert ", novoLivro);
             return novoLivro;
         }else{
-            throw new Error("Livro já cadastrado!!!");
+            throw new Error("Livro com este ISBN já foi cadastrado!!!");
         }
         
     }

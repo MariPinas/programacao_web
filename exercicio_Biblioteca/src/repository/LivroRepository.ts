@@ -98,8 +98,12 @@ export class LivroRepository{
 
         try {
             const resultado = await executarComandoSQL(query, [isbn]);
-            console.log('Livro foi localizado com sucesso, isbn: ', resultado);
-            return resultado;
+            if(resultado.length==0){
+                throw new Error("Livro não existe!!!");
+            }else{
+                console.log('Livro foi localizado com sucesso, isbn: ', resultado);
+                return resultado;
+            }
         } catch (err:any) {
             console.error(`Falha ao procurar o livro de isbn ${isbn} gerando o erro: ${err}`);
             throw err;
@@ -111,9 +115,13 @@ export class LivroRepository{
 
         try {
             const resultado = await executarComandoSQL(query, []);
-            return new Promise<Livro[]>((resolve)=>{
-                resolve(resultado);
-            })
+            if(resultado.length==0){
+                throw new Error("Não existem livros cadastrados!!!");
+            }else{
+                return new Promise<Livro[]>((resolve)=>{
+                    resolve(resultado);
+                })
+            }
         } catch (err:any) {
             console.error(`Falha ao listar os produtos gerando o erro: ${err}`);
             throw err;
