@@ -1,4 +1,3 @@
-import { isNumericLiteral } from "typescript";
 import { Product } from "../model/Product";
 import { ProductRepository } from "../repository/ProductRepository";
 
