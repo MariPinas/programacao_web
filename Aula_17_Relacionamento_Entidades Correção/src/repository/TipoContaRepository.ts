@@ -1,33 +1,31 @@
 import { executarComandoSQL } from "../database/mysql";
-import { TipoConta } from "../model/TipoConta";
-
-
-
+import { TipoConta } from "../model/TipoConta"; 
 export class TipoContaRepository{
+
     constructor(){
         this.createTable();
     }
 
     private async createTable() {
         const query = `
-        CREATE TABLE IF NOT EXISTS Banco.tipoconta (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            descricao VARCHAR(255) NOT NULL,
-            codigoTipoConta DECIMAL(10,2) NOT NULL
-        )`;
+            CREATE TABLE IF NOT EXISTS banco.tipo_conta (
+                id INT AUTO_INCREMENT PRIMARY KEY, 
+                descricao VARCHAR(255) NOT NULL, 
+                codigoTipoConta BIGINT NOT NULL
+            )`;
 
         try {
-                const resultado =  await executarComandoSQL(query, []);
-                console.log('Query executada com sucesso:', resultado);
+            const resultado = await executarComandoSQL(query, []);
+            //console.log('Query executada com sucesso:', resultado);
         } catch (err) {
             console.error('Error');
         }
     }
 
-    async insertTipoConta(tipoConta: TipoConta):Promise<TipoConta>{
+    async insereTipoConta(tipoConta: TipoConta):Promise<TipoConta>{
         try {
             const resultado = await executarComandoSQL(
-                "INSERT INTO banco.tipoconta (descricao, codigoTipoConta) VALUES (?,?)",
+                "INSERT INTO banco.tipo_conta (descricao, codigoTipoConta) VALUES (?,?)",
                 [tipoConta.descricao, tipoConta.codigoTipoConta]
             );
             console.log('Tipo de conta criado com sucesso:', resultado.insertId);
@@ -39,23 +37,19 @@ export class TipoContaRepository{
         }
     }
 
-    async deleteTipoConta(id: number, descricao:string, codigoTipoConta:number) :Promise<TipoConta>{
-        const query = "DELETE FROM banco.tipoconta where id = ?;" ;
+    async updateTipoConta(tipoConta: TipoConta): Promise<void> {
         try {
-            const resultado = await executarComandoSQL(query, [id, descricao, codigoTipoConta]);
-            console.log('Produto deletado com sucesso, ID: ', resultado);
-            const tipoconta = new TipoConta(id, descricao, codigoTipoConta);
-            return new Promise<TipoConta>((resolve)=>{
-                resolve(tipoconta);
-            })
-        } catch (err:any) {
-            console.error(`Falha ao deletar o produto de ID ${id} gerando o erro: ${err}`);
+            const query = "UPDATE banco.tipo_conta SET descricao = ?, codigoTipoConta = ? WHERE id = ?";
+            await executarComandoSQL(query, [tipoConta.descricao, tipoConta.codigoTipoConta, tipoConta.id]);
+            console.log('Tipo de conta atualizado com sucesso:', tipoConta.id);
+        } catch (err) {
+            console.error('Erro ao atualizar tipo de conta:', err);
             throw err;
         }
     }
 
     async getTipoContaPorDescricaoOuCodigoOuId(descricaoTipoConta?: string, codigoTipoConta?:number, id?:number): Promise<TipoConta[]> {
-        let query = "SELECT * FROM banco.tipoconta WHERE";
+        let query = "SELECT * FROM banco.tipo_conta WHERE";
         const params: any[] = [];
         
         if (descricaoTipoConta) {
@@ -87,13 +81,24 @@ export class TipoContaRepository{
         }
     }
 
-    async updateTipoConta(tipoConta: TipoConta): Promise<void> {
+    async deletaTipoConta(tipoConta: number): Promise<void> {
         try {
-            const query = "UPDATE banco.tipoconta SET descricao = ?, codigoTipoConta = ? WHERE id = ?";
-            await executarComandoSQL(query, [tipoConta.descricao, tipoConta.codigoTipoConta, tipoConta.id]);
-            console.log('Tipo de conta atualizado com sucesso:', tipoConta.id);
+            const query = "DELETE FROM banco.tipo_conta WHERE id = ?";
+            await executarComandoSQL(query, [tipoConta]);
+            console.log('Tipo de conta deletado com sucesso:', tipoConta);
         } catch (err) {
-            console.error('Erro ao atualizar tipo de conta:', err);
+            console.error('Erro ao deletar tipo de conta:', err);
+            throw err;
+        }
+    }
+
+    async listaTipoConta(): Promise<TipoConta[]> {
+        try {
+            const query = "SELECT * FROM banco.tipo_conta";
+            const result: TipoConta[] = await executarComandoSQL(query, []);
+            return result;
+        } catch (err) {
+            console.error('Erro ao listar os tipos de conta:', err);
             throw err;
         }
     }
