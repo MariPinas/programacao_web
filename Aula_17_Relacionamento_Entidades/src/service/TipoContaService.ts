@@ -38,32 +38,35 @@ export class TipoContaService{
         return tipoConta;
     }
 
-    async deletaTipoConta(tipoContaData:any): Promise<TipoConta> {
-        const { id, descricao, codigoTipoConta} = tipoContaData;
+    async deletaTipoConta(tipoConta: TipoConta): Promise<TipoConta> {
+        console.log(tipoConta instanceof TipoConta)
+        if (!tipoConta) {
+            throw new Error("O parâmetro passado não é um objeto do tipo TipoConta");
+        }
 
-        /*Select no repositorio de conta e verifica where tipoconta poupanca or corrente se a chamada do repository conta voltar verdadeira, entao nao pode deletar
-        se voltar false pode deletar*/
-        /*Agora chama o repositorio de tipo conta para poder deletar esse tipo de conta, somente se der false no de cima*/
+        const result: TipoConta[] = await this.tipocontaRepository.getTipoContaPorDescricaoOuCodigoOuId(tipoConta.descricao, tipoConta.codigoTipoConta, tipoConta.id);
+
         
-        
-        const tipoconta =  await this.tipocontaRepository.deleteTipoConta(id, descricao, codigoTipoConta);
-        return tipoconta;
+        if(result.length == 0){
+            throw new Error("Tipo de conta não encontrada. Verifique os campo(s) informados!");
+        }
+
+        const listaContas: Conta[] = await this.contaRepository.getContaPorIdOuNumeroOuTipo(undefined, undefined, result[0].codigoTipoConta)
+
+        if(listaContas.length > 0){
+            throw new Error("O tipo de conta não pode ser excluído pois existe vínculo em contas cadastradas.");
+        }
+
+        this.tipocontaRepository.deleteTipoConta(tipoConta.id)
+        return tipoConta;
+    
    }
 
-   /*cadastrar tipo conta*/
-   /*
-   verificar em uma chamada pro repository se a descricao ja existe, com um select, se sim entao nao pode fazer esse cadastro, se for false, pode cadastrar
-   */
+    getTipoConta(id?:any, descricao?:any, codigoTipoConta?:any ):Promise<TipoConta[]>{
+        return this.tipocontaRepository.getTipoContaPorDescricaoOuCodigoOuId(descricao, codigoTipoConta,id);
+    }
 
-
-
-
-
-   /* CADASTRO DE CONTAS
-   chamar no repository de tipo de contas com um select pra ver se esse tipo de conta existe, se sim, entao pode cadastrar a conta, se nao, nao pode cadastrar e informe que nao foi possivel
-   */
-
-   getTipoConta(id?:any, descricao?:any, codigoTipoConta?:any ):Promise<TipoConta[]>{
-    return this.tipocontaRepository.getTipoContaPorDescricaoOuCodigoOuId(descricao, codigoTipoConta,id);
-}
+    getTiposConta():Promise<TipoConta[]>{
+        return this.tipocontaRepository.listaTipoConta();
+    }
 }
