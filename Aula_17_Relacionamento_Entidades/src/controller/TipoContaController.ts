@@ -3,9 +3,9 @@ import { Request, Response } from "express";
 
     const serviceTipoConta:TipoContaService = new TipoContaService();
 
-  /*  export async function cadastrarTipoConta(req: Request, res:Response){
+    export async function cadastrarTipoConta(req: Request, res:Response){
         try {
-            const novoTipoConta = await serviceTipoConta.criaTipoConta(req.body);
+            const novoTipoConta = await serviceTipoConta.insereTipoConta(req.body);
             res.status(201).json(
                 {
                     mensagem:"Tipo de conta criada com sucesso!",
@@ -29,7 +29,7 @@ import { Request, Response } from "express";
         } catch (error: any) {
             res.status(400).json({ message: error.message});
         }
-    }*/
+    }
 
     export async function deletaTipoConta(req: Request, res:Response){
         try {
@@ -45,7 +45,7 @@ import { Request, Response } from "express";
         }
     }
 
-    /*export async function getTipoConta(req: Request, res:Response){
+    export async function getTipoConta(req: Request, res:Response){
         try {
             const conta = await serviceTipoConta.getTipoConta(req.query.id, req.query.descricao,req.query.codigoTipoConta);
             res.status(200).json(
@@ -69,4 +69,4 @@ import { Request, Response } from "express";
         } catch (error: any) {
             res.status(400).json({ message: error.message});
         }
-    }*/
+    }
