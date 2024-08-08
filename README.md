@@ -24,3 +24,6 @@ Aula 8
 - get não tem body
 - json é um arquivo de texto estruturado
 - API REST utiliza protocolo http
+
+Aula mysql
+- npm i mysql2
