@@ -13,32 +13,35 @@ export class CategoriaController extends Controller{
     categoriaService = new CategoriaService () ;
 
     @Post() 
-    async cadastrarCategoria (
+    async cadastrarCategoria(
         @Body() dto:CategoriaRequestDto,
-        @Res() fail:TsoaResponse <400,BasicResponseDto>,
-        @Res() success:TsoaResponse <201,BasicResponseDto>
-    ):Promise<void>{
+        @Res() fail:TsoaResponse<400, BasicResponseDto>,
+        @Res() success:TsoaResponse<201, BasicResponseDto>
+    ): Promise<void> {
         try {
-            const novaCategoria = await this.categoriaService.cadastrarCategoria(dto);
-            return success(201,new BasicResponseDto("Categoria adicionada com sucesso!",novaCategoria));
-        } catch (error:any){
-        return fail(400, new BasicResponseDto(error.message,undefined));
+            console.log("TRY DO CONTROLLER", dto);
+            const categoria = await this.categoriaService.cadastrarCategoria(dto);
+            return success(201, new BasicResponseDto("Categoria criada com sucesso!", categoria));
+        } catch (error: any) {
+            return fail(400, new BasicResponseDto(error.message, undefined));
         }
     }
 
     @Put()
     async atualizarCategoria(
-        @Body() dto:CategoriaDto,
-        @Res() notFound:TsoaResponse <400,BasicResponseDto>,
-        @Res() success:TsoaResponse <200,BasicResponseDto>
-    ):Promise<void>{
+        @Body() dto: CategoriaDto,
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
         try {
+            console.log("TRY DO CONTROLLER ATT", dto);
             const categoria = await this.categoriaService.atualizarCategoria(dto);
-            return success(200,new BasicResponseDto("Categoria atualizada com sucesso!", categoria));
+            return success(200, new BasicResponseDto("Categoria atualizada com sucesso!", categoria));
         } catch (error: any) {
-            return notFound(400,new BasicResponseDto(error.message,undefined));
+            return notFound(400, new BasicResponseDto(error.message, undefined));
         }
-    };
+    }
+
 }
 
 

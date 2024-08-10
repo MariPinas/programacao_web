@@ -11,7 +11,8 @@ export class Categoria{
     private validatesInformation(nome:any){
         let error ='';
         if (typeof nome !== 'string') {
-            error += ("Informações incompletas ou incorretas. "); 
+            console.log("CLASSE CATEGORIA", nome);
+            error += ("Informações incompletas ou incorretas."); 
         }
 
         if(error != ''){

@@ -32,6 +32,7 @@ export class CategoriaRepository{
     }
 
     async insertCategoria(categoria:Categoria) :Promise<Categoria>{
+        console.log("REPOSITORY CATEGORIA", categoria);
         const query = "INSERT INTO biblioteca.Categoria (nome) VALUES (?)" ;
 
         try {
@@ -48,6 +49,7 @@ export class CategoriaRepository{
     }
 
     async updateCategoria(categoria:Categoria) :Promise<Categoria>{
+        console.log("REPOSITORY CATEGORIA", categoria);
         const query = "UPDATE biblioteca.Categoria set nome = ? where id = ?;" ;
 
         try {

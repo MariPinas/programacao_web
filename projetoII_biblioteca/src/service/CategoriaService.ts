@@ -6,9 +6,10 @@ export class CategoriaService{
     private categoriaRepository = CategoriaRepository.getInstance();
 
     async cadastrarCategoria(categoriaData:any): Promise<Categoria> {
-        const {name} = categoriaData;
-        
-        const categoria = new Categoria(undefined, name)
+        const {nome} = categoriaData;
+        console.log("SERVICE CADASTRAR CATEGORIA", nome);
+
+        const categoria = new Categoria(undefined, nome)
 
         const novaCategoria =  await this.categoriaRepository.insertCategoria(categoria);
         console.log("Service - Insert ", novaCategoria);
@@ -16,9 +17,9 @@ export class CategoriaService{
     }
 
     async atualizarCategoria(categoriaData: any): Promise<Categoria> {
-        const { id, name } = categoriaData;
-
-        const categoria = new Categoria(id, name)
+        const {id, nome} = categoriaData;
+        console.log("SERVICE ATT CATEGORIA - ", id, nome);
+        const categoria = new Categoria(id, nome)
 
         await this.categoriaRepository.updateCategoria(categoria);
         console.log("Service - Update ", categoria);
