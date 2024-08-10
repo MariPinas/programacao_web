@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+/*import { Request, Response } from "express";
 import { EmprestimoService } from "../service/EmprestimoService";
 
 const emprestimoService = new EmprestimoService();
@@ -71,4 +71,4 @@ export async function listarTodosEmprestimos (req: Request, res: Response){
     } catch (error: any) {
         res.status(400).json({ message: error.message});
     }
-};
+};*/

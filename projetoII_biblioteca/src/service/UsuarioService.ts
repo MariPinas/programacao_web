@@ -1,4 +1,4 @@
-import { Usuario } from "../model/Usuario";
+/*import { Usuario } from "../model/Usuario";
 import { UsuarioRepository } from "../repository/UsuarioRepository";
 
 export class UsuarioService{
@@ -49,4 +49,4 @@ export class UsuarioService{
         return usuario;
     }
 
-}
+}*/

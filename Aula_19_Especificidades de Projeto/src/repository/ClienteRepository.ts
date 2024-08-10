@@ -61,7 +61,7 @@ export class ClienteRepository {
     }
 
     async getClienteByNameCpfId(name?: string, cpf?: string, id?: number): Promise<Cliente[]> {
-        let query = "SELECT * FROM banco.cliente WHERE";
+        let query = "SELECT * FROM banco.cliente";
         const params: any[] = [];
 
         if (name) {

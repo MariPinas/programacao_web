@@ -1,12 +1,12 @@
-import { Categoria } from "../model/Categoria";
+import { Categoria } from "../model/entity/Categoria";
 import { CategoriaRepository } from "../repository/CategoriaRepository";
 
 export class CategoriaService{
 
-    categoriaRepository: CategoriaRepository = new CategoriaRepository(); //
+    private categoriaRepository = CategoriaRepository.getInstance();
 
-    async cadastrarCategoria(categoriaData: any): Promise<Categoria> {
-        const { name } = categoriaData;
+    async cadastrarCategoria(categoriaData:any): Promise<Categoria> {
+        const {name} = categoriaData;
         
         const categoria = new Categoria(undefined, name)
 
@@ -24,7 +24,7 @@ export class CategoriaService{
         console.log("Service - Update ", categoria);
         return categoria;
     }
-
+/*
     async deletarCategoria(categoriaData: any): Promise<Categoria> {
         const { id, name } = categoriaData;
 
@@ -48,5 +48,5 @@ export class CategoriaService{
         console.log("Service - Filtrar Todos", categoria);
         return categoria;
     }
-
+*/
 }

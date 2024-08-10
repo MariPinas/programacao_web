@@ -1,5 +1,5 @@
-import { executarComandoSQL } from "../database/mysql";
-import { Livro } from "../model/Livro";
+/*import { executarComandoSQL } from "../database/mysql";
+import { Livro } from "../model/entity/Livro";
 
 
 export class LivroRepository{
@@ -103,4 +103,4 @@ export class LivroRepository{
     }
 
     
-}
+}*/

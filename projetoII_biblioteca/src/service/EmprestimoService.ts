@@ -1,4 +1,4 @@
-import { Emprestimo } from "../model/Emprestimo";
+/*import { Emprestimo } from "../model/Emprestimo";
 import { EmprestimoRepository } from "../repository/EmprestimoRepository";
 
 export class EmprestimoService{
@@ -49,4 +49,4 @@ export class EmprestimoService{
         return emprestimos;
     }
 
-}
+}*/

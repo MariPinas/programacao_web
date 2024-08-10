@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+/*import { Request, Response } from "express";
 import { LivroService } from "../service/LivroService";
 
 const livroService = new LivroService();
@@ -71,4 +71,4 @@ export async function listarTodosLivro (req: Request, res: Response){
     } catch (error: any) {
         res.status(400).json({ message: error.message});
     }
-};
+};*/

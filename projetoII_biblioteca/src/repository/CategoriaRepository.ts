@@ -1,11 +1,19 @@
 import { executarComandoSQL } from "../database/mysql";
-import { Categoria } from "../model/Categoria";
+import { Categoria } from "../model/entity/Categoria";
 
 
 export class CategoriaRepository{
+    private static instance: CategoriaRepository;
 
     constructor(){
         this.createTable();
+    }
+
+    public static getInstance(): CategoriaRepository {
+        if (!this.instance) {
+            this.instance = new CategoriaRepository();
+        }
+        return this.instance
     }
 
     private async createTable() {

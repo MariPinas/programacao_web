@@ -1,12 +1,12 @@
 {
-  "name": "aula_16",
+  "name": "projeto_2",
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
   "scripts": {
     "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsoa spec-and-routes && tsc"
   },
   "keywords": [],
   "author": "",

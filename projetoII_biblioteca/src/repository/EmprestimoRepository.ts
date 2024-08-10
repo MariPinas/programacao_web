@@ -1,5 +1,5 @@
-import { executarComandoSQL } from "../database/mysql";
-import { Emprestimo } from "../model/Emprestimo";
+/*import { executarComandoSQL } from "../database/mysql";
+import { Emprestimo } from "../model/entity/Emprestimo";
 
 
 export class EmprestimoRepository{
@@ -106,4 +106,4 @@ export class EmprestimoRepository{
     }
 
     
-}
+}*/

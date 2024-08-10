@@ -1,5 +1,6 @@
+/*
 import { Request, Response } from "express";
-import { UsuarioService } from "../service/Usuario";
+import { UsuarioService } from "../service/UsuarioService";
 
 const usuarioService = new UsuarioService();
 
@@ -71,4 +72,4 @@ export async function listarTodosUsuarios (req: Request, res: Response){
     } catch (error: any) {
         res.status(400).json({ message: error.message});
     }
-};
+};*/
