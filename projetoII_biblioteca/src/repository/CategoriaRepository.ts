@@ -79,7 +79,7 @@ export class CategoriaRepository{
         }
     }
 
-    async filterCategoria(id: number) :Promise<Categoria>{
+    async buscaCategoriaporID(id: number) :Promise<Categoria>{
         const query = "SELECT * FROM biblioteca.Categoria where id = ?" ;
 
         try {
@@ -94,7 +94,37 @@ export class CategoriaRepository{
         }
     }
 
-    async filterAllCategoria() :Promise<Categoria[]>{
+    async buscaCategoriaporIDeNome(id: number, nome:number) :Promise<Categoria>{
+        const query = "SELECT * FROM biblioteca.Categoria where id = ? and nome = ?" ;
+
+        try {
+            const resultado = await executarComandoSQL(query, [id, nome]);
+            console.log('Categoria localizada com sucesso, id e nome:', resultado);
+            return new Promise<Categoria>((resolve)=>{
+                resolve(resultado);
+            })
+        } catch (err:any) {
+            console.error(`Falha ao procurar a categoria de ID ${id} e Nome ${nome} gerando o erro: ${err}`);
+            throw err;
+        }
+    }
+
+    async buscaCategoriaporNome(nome: string) :Promise<Categoria>{
+        const query = "SELECT * FROM biblioteca.Categoria where nome = ?" ;
+
+        try {
+            const resultado = await executarComandoSQL(query, [nome]);
+            console.log('Categoria localizada com sucesso, Nome: ', resultado);
+            return new Promise<Categoria>((resolve)=>{
+                resolve(resultado);
+            })
+        } catch (err:any) {
+            console.error(`Falha ao procurar a categoria de nome ${nome} gerando o erro: ${err}`);
+            throw err;
+        }
+    }
+
+    async buscaAllCategorias() :Promise<Categoria[]>{
         const query = "SELECT * FROM biblioteca.Categoria" ;
 
         try {
@@ -107,6 +137,5 @@ export class CategoriaRepository{
             throw err;
         }
     }
-
     
 }
