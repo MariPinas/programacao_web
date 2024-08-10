@@ -57,7 +57,22 @@ export class CategoriaService{
         }
     }
 
-    async buscaCategoria(categoriaData: any): Promise<Categoria> {
+    async buscaCategoriaPorNome(categoriaData: any): Promise<Categoria> {
+        const {nome} = categoriaData;
+        if(nome){
+            throw new Error("400 Bad Request - Informações incompletas");
+        }
+        const categoriaEncontrada =  await this.categoriaRepository.buscaCategoriaporNome(nome);
+        if(categoriaEncontrada){
+            console.log("Service - Filtrar", categoriaEncontrada);
+            return categoriaEncontrada;
+        }else{
+            throw new Error("409 Conflict - Categoria com esse nome já foi cadastrada!!!");
+        }
+        
+    }
+
+    async buscaCategoriaPorID(categoriaData: any): Promise<Categoria> {
         const idNumber = parseInt(categoriaData, 10);
         if(!idNumber){
             throw new Error("400 Bad Request - Informações incompletas");
@@ -70,8 +85,6 @@ export class CategoriaService{
             throw new Error("409 Conflict - Categoria com esse nome já foi cadastrada!!!");
         }
         
-        
-
     }
 
     async listarTodasCategorias(): Promise<Categoria[]> {

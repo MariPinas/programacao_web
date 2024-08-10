@@ -14,7 +14,10 @@ export class UsuarioRepository{
             id INT AUTO_INCREMENT PRIMARY KEY,
             nome VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL,
-            senha VARCHAR(255) NOT NULL
+            senha VARCHAR(255) NOT NULL,
+            idPessoa INT NOT NULL,
+            FOREIGN KEY (idPessoa)
+            REFERENCES biblioteca.Pessoa(id)
         )`;
 
         try {
@@ -26,10 +29,10 @@ export class UsuarioRepository{
     }
 
     async insertUsuario(usuario:Usuario) :Promise<Usuario>{
-        const query = "INSERT INTO biblioteca.Usuario (nome, email, senha) VALUES (?, ?, ?)" ;
+        const query = "INSERT INTO biblioteca.Usuario (nome, email, senha, idPessoa) VALUES (?, ?, ?, ?)" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [usuario.nome, usuario.email, usuario.senha]);
+            const resultado = await executarComandoSQL(query, [usuario.nome, usuario.email, usuario.senha, usuario.idPessoa]);
             console.log('Usuario inserido com sucesso, ID: ', resultado.insertId);
             usuario.id = resultado.insertId;
             return new Promise<Usuario>((resolve)=>{
@@ -42,10 +45,10 @@ export class UsuarioRepository{
     }
 
     async updateUsuario(usuario:Usuario) :Promise<Usuario>{
-        const query = "UPDATE biblioteca.Usuario set nome = ?, email = ?, senha = ? where id = ?;" ;
+        const query = "UPDATE biblioteca.Usuario set nome = ?, email = ?, senha = ?, idPessoa = ? where id = ?;" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [usuario.nome, usuario.email, usuario.senha, usuario.id]);
+            const resultado = await executarComandoSQL(query, [usuario.nome, usuario.email, usuario.senha, usuario.idPessoa, usuario.id]);
             console.log('Usuario atualizado com sucesso, ID: ', resultado);
             return new Promise<Usuario>((resolve)=>{
                 resolve(usuario);

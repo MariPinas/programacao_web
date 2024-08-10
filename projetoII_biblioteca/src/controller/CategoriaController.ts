@@ -1,5 +1,5 @@
 import { CategoriaService } from "../service/CategoriaService";
-import { Route, Tags, Post, Body, Res, TsoaResponse, Controller, Put} from "tsoa";
+import { Route, Tags, Post, Body, Res, TsoaResponse, Controller, Put, Delete, Get, Path, Query} from "tsoa";
 import { BasicResponseDto } from "../model/dto/BasicResponseDto";
 import { CategoriaRequestDto} from "../model/dto/CategoriaDTO/CategoriaRequestDto";
 import { CategoriaDto } from "../model/dto/CategoriaDTO/CategoriaDto";
@@ -42,63 +42,58 @@ export class CategoriaController extends Controller{
         }
     }
 
+    @Delete()
+    async deletarCategoria (
+        @Body() dto: CategoriaDto,
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            const categoria = await this.categoriaService.deletarCategoria(dto);
+            return success(200, new BasicResponseDto("Categoria deletada com sucesso!", categoria));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
+        }
+    }
+    @Get("id/{id}")
+    async filtrarCategoriaPorId(
+        @Path() id: number,
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            const categoria = await this.categoriaService.buscaCategoriaPorID(id);
+            return success(200, new BasicResponseDto("Categoria encontrada!", categoria));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
+        }
+    }
+
+    @Get("nome/{nome}")
+    async filtrarProdutoPorNome(
+        @Query() nome: string,
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            const categoria = await this.categoriaService.buscaCategoriaPorNome(nome);
+            return success(200, new BasicResponseDto("Produto encontrado!", categoria));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
+        }
+    }
+
+    @Get("all")
+    async listarTodosProduto(
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            const categorias: Categoria[] = await this.categoriaService.listarTodasCategorias();
+            return success(200, new BasicResponseDto("Produtos listados com sucesso!", categorias));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
+        }
+    }
+
 }
-
-
-
-
-/*export async function atualizarCategoria (req: Request, res: Response){
-    try {
-        const categoria = await categoriaService.atualizarCategoria(req.body);
-        res.status(200).json(
-            {
-                mensagem:"Categoria atualizada com sucesso!",
-                categoria:categoria
-            }
-        );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
-    }
-};
-@delete
-export async function deletarCategoria (req: Request, res: Response){
-    try {
-        const categoria = await categoriaService.deletarCategoria(req.body);
-        res.status(200).json(
-            {
-                mensagem:"Categoria deletada com sucesso!",
-                categoria:categoria
-            }
-        );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
-    }
-};
-
-export async function filtrarCategoria (req: Request, res: Response){
-    try {
-        const categoria = await categoriaService.filtrarCategoria(req.query.id);
-        res.status(200).json(
-            {
-                mensagem:"Categoria encontrada com sucesso!",
-                categoria:categoria
-            }
-        );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
-    }
-};
-@get
-export async function listarTodasCategorias (req: Request, res: Response){
-    try {
-        const categorias = await categoriaService.listarTodasCategorias(); @query() id:number
-        res.status(200).json(
-            {
-                mensagem:"Categorias listadas com sucesso!",
-                categorias:categorias
-            }
-            );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
-    }
-};*/
