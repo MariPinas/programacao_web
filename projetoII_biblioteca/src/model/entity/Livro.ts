@@ -16,6 +16,7 @@ export class Livro{
     private validatesInformation(titulo:any, autor:any, categoriaID:any){
         let error ='';
         if (typeof titulo !== 'string' || typeof autor !== 'string' || typeof categoriaID !== 'number') {
+            console.log("CLASSE Livro", titulo, autor, categoriaID);
             error += ("Informações incompletas ou incorretas. ");
         }
 

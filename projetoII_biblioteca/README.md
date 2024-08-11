@@ -11,3 +11,5 @@ atualizacao v0.4 - Adicionado Pessoa e terminado primeira versao put post get e 
 atualizacao v0.5 - Arrumado problemas de Categoria, categoria funcionando, adicionado Pessoa completo, pessoa funcionando, adicionado dto de usuario.
 
 atualizacao v0.6 - Arrumado problemas de Pessoa, pessoa funcionando, adicionado Usuario completo, usuario funcionando.
+
+atualizacao v0.7 - Livro adicionado, livro funcionando.

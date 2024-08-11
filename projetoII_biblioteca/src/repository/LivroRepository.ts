@@ -1,13 +1,18 @@
-/*import { executarComandoSQL } from "../database/mysql";
+import { executarComandoSQL } from "../database/mysql";
 import { Livro } from "../model/entity/Livro";
 
 
 export class LivroRepository{
-
+    private static instance: LivroRepository;
     constructor(){
         this.createTable();
     }
-
+    public static getInstance(): LivroRepository {
+        if (!this.instance) {
+            this.instance = new LivroRepository();
+        }
+        return this.instance
+    }
     private async createTable() {
         const query = `
         CREATE TABLE IF NOT EXISTS biblioteca.Livro (
@@ -26,13 +31,14 @@ export class LivroRepository{
             console.error('Error');
         }
     }
-
+ 
     async insertLivro(livro:Livro) :Promise<Livro>{
-        const query = "INSERT INTO biblioteca.Livro (titulo, autor, categoriaID) VALUES (?, ?, ?)" ;
+        console.log("REPOSITORY USUARIO", livro);
+        const query = "INSERT INTO biblioteca.Livro (titulo, autor, categoriaId) VALUES (?,?,?)" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [livro.titulo, livro.autor, livro.categoriaID]);
-            console.log('Livro inserido com sucesso, ID: ', resultado.insertId);
+            const resultado = await executarComandoSQL(query, [livro.titulo,livro.autor,livro.categoriaID,]);
+            console.log('livro inserido com sucesso, ID: ', resultado.insertId);
             livro.id = resultado.insertId;
             return new Promise<Livro>((resolve)=>{
                 resolve(livro);
@@ -44,10 +50,11 @@ export class LivroRepository{
     }
 
     async updateLivro(livro:Livro) :Promise<Livro>{
-        const query = "UPDATE biblioteca.Livro set titulo = ?, autor = ?, categoriaID = ? where id = ?;" ;
+        console.log("REPOSITORY USUARIO", livro);
+        const query = "UPDATE biblioteca.Livro set titulo = ?, autor=?, categoriaID=? where id = ?;" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [livro.titulo, livro.autor, livro.categoriaID, livro.id]);
+            const resultado = await executarComandoSQL(query, [livro.titulo,livro.autor,livro.categoriaID, livro.id]);
             console.log('Livro atualizado com sucesso, ID: ', resultado);
             return new Promise<Livro>((resolve)=>{
                 resolve(livro);
@@ -58,37 +65,82 @@ export class LivroRepository{
         }
     }
 
-    async deleteLivro(livro:Livro) :Promise<Livro>{
+    async deleteLivro(livro:Livro) :Promise<Livro[]>{
         const query = "DELETE FROM biblioteca.Livro where id = ?;" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [livro.id]);
-            console.log('Livro deletado com sucesso: ', livro);
-            return new Promise<Livro>((resolve)=>{
-                resolve(livro);
+            const resultado: Livro[] = await executarComandoSQL(query, [livro.id]);
+            console.log('Livro deletada com sucesso: ', livro);
+            return new Promise<Livro[]>((resolve)=>{
+                resolve(resultado);
             })
         } catch (err:any) {
-            console.error(`Falha ao deletar o livro de ID ${livro.id} gerando o erro: ${err}`);
+            console.error(`Falha ao deletar a livro de ID ${livro.id} gerando o erro: ${err}`);
             throw err;
         }
     }
 
-    async filterLivro(id: number) :Promise<Livro>{
+    async buscaLivroporID(id: number) :Promise<Livro>{
         const query = "SELECT * FROM biblioteca.Livro where id = ?" ;
 
         try {
             const resultado = await executarComandoSQL(query, [id]);
-            console.log('Livro localizado com sucesso, ID: ', resultado);
+            console.log('Livro localizada com sucesso, ID: ', resultado);
             return new Promise<Livro>((resolve)=>{
                 resolve(resultado);
             })
         } catch (err:any) {
-            console.error(`Falha ao procurar o livro de ID ${id} gerando o erro: ${err}`);
+            console.error(`Falha ao procurar a livro de ID ${id} gerando o erro: ${err}`);
             throw err;
         }
     }
 
-    async filterAllLivro() :Promise<Livro[]>{
+    async buscaLivroporIDeTitulo(id: number, titulo:number) :Promise<Livro[]>{
+        const query = "SELECT * FROM biblioteca.Livro where id = ? and titulo = ?" ;
+
+        try {
+            const resultado: Livro[] = await executarComandoSQL(query, [id, titulo]);
+            console.log('Livro localizada com sucesso, id e titulo:', resultado);
+            return new Promise<Livro[]>((resolve)=>{
+                resolve(resultado);
+            })
+        } catch (err:any) {
+            console.error(`Falha ao procurar a livro de ID ${id} e Titulo ${titulo} gerando o erro: ${err}`);
+            throw err;
+        }
+    }
+
+    async buscaLivroporTitulo(titulo: string) :Promise<Livro[]>{
+        const query = "SELECT * FROM biblioteca.Livro where titulo = ?" ;
+
+        try {
+            const resultado: Livro[] = await executarComandoSQL(query, [titulo]);
+            console.log('Livro localizada com sucesso, Titulo: ', resultado);
+            return new Promise<Livro[]>((resolve)=>{
+                resolve(resultado);
+            })
+        } catch (err:any) {
+            console.error(`Falha ao procurar a livro de titulo ${titulo} gerando o erro: ${err}`);
+            throw err;
+        }
+    }
+
+    async buscaLivroporidCategoria(categoriaID: number) :Promise<Livro[]>{
+        const query = "SELECT * FROM biblioteca.Categoria where id = ?" ;
+
+        try {
+            const resultado: Livro[] = await executarComandoSQL(query, [categoriaID]);
+            console.log('Livro localizado com sucesso, ID da categoria: ', resultado);
+            return new Promise<Livro[]>((resolve)=>{
+                resolve(resultado);
+            })
+        } catch (err:any) {
+            console.error(`Falha ao procurar o livro com id de Livro ${categoriaID} gerando o erro: ${err}`);
+            throw err;
+        }
+    }
+
+    async buscaAllLivros() :Promise<Livro[]>{
         const query = "SELECT * FROM biblioteca.Livro" ;
 
         try {
@@ -97,10 +149,10 @@ export class LivroRepository{
                 resolve(resultado);
             })
         } catch (err:any) {
-            console.error(`Falha ao listar os livros gerando o erro: ${err}`);
+            console.error(`Falha ao listar as livros gerando o erro: ${err}`);
             throw err;
         }
     }
 
     
-}*/
+}
