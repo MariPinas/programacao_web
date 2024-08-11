@@ -20,8 +20,8 @@ export class PessoaController extends Controller{
     ): Promise<void> {
         try {
             console.log("TRY DO CONTROLLER", dto);
-            const product = await this.servicePessoa.cadastrarPessoa(dto);
-            return success(201, new BasicResponseDto("Pessoa criado com sucesso!", product));
+            const pessoa = await this.servicePessoa.cadastrarPessoa(dto);
+            return success(201, new BasicResponseDto("Pessoa criado com sucesso!", pessoa));
         } catch (error: any) {
             return fail(400, new BasicResponseDto(error.message, undefined));
         }
@@ -77,7 +77,7 @@ export class PessoaController extends Controller{
     ): Promise<void> {
         try {
             const pessoa = await this.servicePessoa.buscaPessoaPorNome(nome);
-            return success(200, new BasicResponseDto("Produto encontrado!", pessoa));
+            return success(200, new BasicResponseDto("Pessoa encontrada!", pessoa));
         } catch (error: any) {
             return notFound(400, new BasicResponseDto(error.message, undefined));
 
@@ -85,13 +85,13 @@ export class PessoaController extends Controller{
     }
 
     @Get("all")
-    async listarTodosProduto(
+    async listarTodasPessoas(
         @Res() notFound: TsoaResponse<400, BasicResponseDto>,
         @Res() success: TsoaResponse<200, BasicResponseDto>
     ): Promise<void> {
         try {
             const pessoas: Pessoa[] = await this.servicePessoa.listarTodasPessoas();
-            return success(200, new BasicResponseDto("Produtos listados com sucesso!", pessoas));
+            return success(200, new BasicResponseDto("Pessoas listados com sucesso!", pessoas));
         } catch (error: any) {
             return notFound(400, new BasicResponseDto(error.message, undefined));
         }

@@ -6,16 +6,12 @@ export class PessoaService{
     private pessoaRepository = PessoaRepository.getInstance();
 
     async cadastrarPessoa(pessoaData: any): Promise<Pessoa> {
-        const {nome} = pessoaData;
+        const {nome, email} = pessoaData;
 
-        if (!nome|| nome.trim() === '') {
-            throw new Error("Nome nao pode ser vazio e tem que ser tipo string, digite um nome valido.");
-        }
+        const pessoa = new Pessoa(undefined, nome, email);
 
-        const pessoa = new Pessoa(undefined, nome);
-
-        const pessoasExistentes = await this.pessoaRepository.buscaPessoaporNome(nome);
-        if (pessoasExistentes.length > 0) {
+        const pessoasEncontradas = await this.pessoaRepository.buscaPessoaporNome(nome);
+        if (pessoasEncontradas.length > 0) {
             throw new Error("Pessoa com esse nome já existe.");
         }
 
@@ -25,14 +21,14 @@ export class PessoaService{
     }
 
     async atualizarPessoa(pessoaData: any): Promise<Pessoa> {
-        const {id, nome} = pessoaData;
-        console.log("SERVICE ATT CATEGORIA - ", id, nome);
+        const {id, nome, email} = pessoaData;
+        console.log("SERVICE ATT CATEGORIA - ", id, nome, email);
         if(!nome){
             throw new Error("400 Bad Request - Informações incompletas");
         }
         const pessoaEncontrada =  await this.pessoaRepository.buscaPessoaporID(id);
         if(pessoaEncontrada){
-            const pessoa = new Pessoa(id, nome)
+            const pessoa = new Pessoa(id, nome, email)
             await this.pessoaRepository.updatePessoa(pessoa);
             console.log("Service - Update ", pessoa);
             return pessoa;
@@ -42,11 +38,11 @@ export class PessoaService{
     }
 
     async deletarPessoa(pessoaData: any): Promise<Pessoa[]> {
-        const {id, nome} = pessoaData;
-        if(!id || !nome || nome.trim() === ''){
-            throw new Error("400 Bad Request - Informações incompletas");
+        const {id, nome, email} = pessoaData;
+        if(nome.trim() === ''||email.trim() === ''){
+            throw new Error("400 Bad Request - Informações erradas");
         }
-        const pessoa = new Pessoa(id, nome)
+        const pessoa = new Pessoa(id, nome, email)
         const pessoaEncontrada =  await this.pessoaRepository.buscaPessoaporIDeNome(id, nome);
         
         if(pessoaEncontrada.length != 0){

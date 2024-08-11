@@ -1,19 +1,20 @@
 export class Pessoa{
     id: number;
     nome: string;
-    
+    email: string;
 
 
-    constructor(id?:number, nome?:string, email?:string, senha?:string){
-        this.validatesInformation(nome);
+    constructor(id?:number, nome?:string, email?:string){
+        this.validatesInformation(nome, email);
         this.id = id || 0;
         this.nome = nome || '';
-        
+        this.email = email || '';
     }
 
-    private validatesInformation(nome:any){
+    private validatesInformation(nome:any, email:any){
         let error ='';
-        if (typeof nome !== 'string') {
+        if (typeof nome !== 'string' || typeof email !== 'string') {
+            console.log("CLASSE PESSOA", nome, email);
             error += ("Informações incompletas ou incorretas. ");
         }
 

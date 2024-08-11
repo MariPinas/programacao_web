@@ -1,75 +1,100 @@
-/*
-import { Request, Response } from "express";
 import { UsuarioService } from "../service/UsuarioService";
+import { Route, Tags, Post, Body, Res, TsoaResponse, Controller, Put, Delete, Get, Path, Query} from "tsoa";
+import { BasicResponseDto } from "../model/dto/BasicResponseDto";
+import { UsuarioRequestDto} from "../model/dto/UsuarioDTO/UsuarioRequestDto";
+import { UsuarioDto } from "../model/dto/UsuarioDTO/UsuarioDto";
+import { Usuario } from "../model/entity/Usuario";
 
-const usuarioService = new UsuarioService();
 
-export async function cadastrarUsuario (req: Request, res: Response){
-    try {
-        const novoUsuario = await usuarioService.cadastrarUsuario(req.body);
-        res.status(201).json(
-            {
-                mensagem:"Usuario adicionado com sucesso!",
-                usuario:novoUsuario
-            }
-        );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
+
+@Route("usuario")
+@Tags("Usuario")
+export class UsuarioController extends Controller{
+    serviceUsuario = new UsuarioService();
+
+    @Post()
+    async cadastrarUsuario(
+        @Body() dto: UsuarioRequestDto,
+        @Res() fail: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<201, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            console.log("TRY DO CONTROLLER", dto);
+            const product = await this.serviceUsuario.cadastrarUsuario(dto);
+            return success(201, new BasicResponseDto("Usuario criado com sucesso!", product));
+        } catch (error: any) {
+            return fail(400, new BasicResponseDto(error.message, undefined));
+        }
     }
-};
-
-export async function atualizarUsuario (req: Request, res: Response){
-    try {
-        const usuario = await usuarioService.atualizarUsuario(req.body);
-        res.status(200).json(
-            {
-                mensagem:"Usuario atualizado com sucesso!",
-                usuario:usuario
-            }
-        );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
+ 
+    @Put()
+    async atualizarUsuario(
+        @Body() dto: UsuarioDto,
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            console.log("TRY DO CONTROLLER ATT", dto);
+            const usuario = await this.serviceUsuario.atualizarUsuario(dto);
+            return success(200, new BasicResponseDto("Usuario atualizado com sucesso!", usuario));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
+        }
     }
-};
 
-export async function deletarUsuario (req: Request, res: Response){
-    try {
-        const usuario = await usuarioService.deletarUsuario(req.body);
-        res.status(200).json(
-            {
-                mensagem:"Usuario deletado com sucesso!",
-                usuario:usuario
-            }
-        );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
+    @Delete()
+    async deletarUsuario (
+        @Body() dto: UsuarioDto,
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            const usuario = await this.serviceUsuario.deletarUsuario(dto);
+            return success(200, new BasicResponseDto("Usuario deletado com sucesso!", usuario));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
+        }
     }
-};
+    @Get("id/{id}")
+    async filtrarUsuarioPorId(
+        @Path() id: number,
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            const usuario = await this.serviceUsuario.buscaUsuarioPorID(id);
+            return success(200, new BasicResponseDto("Usuario encontrado!", usuario));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
+        }
+    }
 
-export async function filtrarUsuario (req: Request, res: Response){
-    try {
-        const usuario = await usuarioService.filtrarUsuario(req.query.id);
-        res.status(200).json(
-            {
-                mensagem:"Usuario encontrado com sucesso!",
-                usuario:usuario
-            }
-        );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
-    }
-};
+    @Get("nome")
+    async filtrarProdutoPorNome(
+        @Query() nome: string,
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            const usuario = await this.serviceUsuario.buscaUsuarioPorNome(nome);
+            return success(200, new BasicResponseDto("Usuario encontrado!", usuario));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
 
-export async function listarTodosUsuarios (req: Request, res: Response){
-    try {
-        const usuarios = await usuarioService.listarTodosUsuarios();
-        res.status(200).json(
-            {
-                mensagem:"Usuarios listados com sucesso!",
-                usuarios:usuarios
-            }
-            );
-    } catch (error: any) {
-        res.status(400).json({ message: error.message});
+        }
     }
-};*/
+
+    @Get("all")
+    async listarTodosUsuarios(
+        @Res() notFound: TsoaResponse<400, BasicResponseDto>,
+        @Res() success: TsoaResponse<200, BasicResponseDto>
+    ): Promise<void> {
+        try {
+            const usuarios: Usuario[] = await this.serviceUsuario.listarTodasUsuarios();
+            return success(200, new BasicResponseDto("Usuarios listados com sucesso!", usuarios));
+        } catch (error: any) {
+            return notFound(400, new BasicResponseDto(error.message, undefined));
+        }
+    }
+
+}

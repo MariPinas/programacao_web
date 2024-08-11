@@ -1,8 +1,11 @@
 export class PessoaRequestDto { 
     nome:string;
-    constructor(nome?:string){
+    email: string;
+    
+    constructor(nome?:string, email?: string){
         this.nome=nome || '';
-        console.log("CLASSE REQUEST DTO PESSOA", nome);
+        this.email=email || '';
+        console.log("CLASSE REQUEST DTO PESSOA", nome, email);
     }
     
 }

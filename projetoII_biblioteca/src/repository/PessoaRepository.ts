@@ -17,7 +17,8 @@ export class PessoaRepository{
         const query = `
         CREATE TABLE IF NOT EXISTS biblioteca.Pessoa (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            nome VARCHAR(255) NOT NULL
+            nome VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL
         )`;
 
         try {
@@ -29,11 +30,11 @@ export class PessoaRepository{
     }
 
     async insertPessoa(pessoa:Pessoa) :Promise<Pessoa>{
-        console.log("REPOSITORY CATEGORIA", pessoa);
-        const query = "INSERT INTO biblioteca.Pessoa (nome) VALUES (?)" ;
+        console.log("REPOSITORY PESSOA", pessoa);
+        const query = "INSERT INTO biblioteca.Pessoa (nome, email) VALUES (?, ?)" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [pessoa.nome]);
+            const resultado = await executarComandoSQL(query, [pessoa.nome, pessoa.email]);
             console.log('pessoa inserida com sucesso, ID: ', resultado.insertId);
             pessoa.id = resultado.insertId;
             return new Promise<Pessoa>((resolve)=>{
@@ -46,11 +47,11 @@ export class PessoaRepository{
     }
 
     async updatePessoa(pessoa:Pessoa) :Promise<Pessoa>{
-        console.log("REPOSITORY CATEGORIA", pessoa);
-        const query = "UPDATE biblioteca.Pessoa set nome = ? where id = ?;" ;
+        console.log("REPOSITORY PESSOA", pessoa);
+        const query = "UPDATE biblioteca.Pessoa set nome = ?, email = ? where id = ?;" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [pessoa.nome, pessoa.id]);
+            const resultado = await executarComandoSQL(query, [pessoa.nome, pessoa.email, pessoa.id]);
             console.log('Pessoa atualizada com sucesso, ID: ', resultado);
             return new Promise<Pessoa>((resolve)=>{
                 resolve(pessoa);
