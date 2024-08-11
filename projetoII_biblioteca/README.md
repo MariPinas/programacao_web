@@ -13,3 +13,5 @@ atualizacao v0.5 - Arrumado problemas de Categoria, categoria funcionando, adici
 atualizacao v0.6 - Arrumado problemas de Pessoa, pessoa funcionando, adicionado Usuario completo, usuario funcionando.
 
 atualizacao v0.7 - Livro adicionado, livro funcionando.
+
+atualizacao v0.8 - Emprestimo adicionado, emprestimo funcionando, apagado consoles.log.

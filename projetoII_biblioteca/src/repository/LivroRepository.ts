@@ -33,7 +33,6 @@ export class LivroRepository{
     }
  
     async insertLivro(livro:Livro) :Promise<Livro>{
-        console.log("REPOSITORY USUARIO", livro);
         const query = "INSERT INTO biblioteca.Livro (titulo, autor, categoriaId) VALUES (?,?,?)" ;
 
         try {
@@ -50,7 +49,6 @@ export class LivroRepository{
     }
 
     async updateLivro(livro:Livro) :Promise<Livro>{
-        console.log("REPOSITORY USUARIO", livro);
         const query = "UPDATE biblioteca.Livro set titulo = ?, autor=?, categoriaID=? where id = ?;" ;
 
         try {

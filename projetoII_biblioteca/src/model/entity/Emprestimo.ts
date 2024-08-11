@@ -19,7 +19,7 @@ export class Emprestimo{
 
     private validatesInformation(livroID:any, usuarioID:any, dataEmprestimo:any, dataDevolucao:any){
         let error ='';
-        if (typeof typeof livroID !== 'number' || typeof usuarioID !== 'number' || typeof dataEmprestimo !== 'string' || typeof dataDevolucao !== 'string') {
+        if (typeof livroID !== 'number' || typeof usuarioID !== 'number' || typeof dataEmprestimo !== 'string' || typeof dataDevolucao !== 'string') {
             error += ("Informações incompletas ou incorretas. ");
         }
 

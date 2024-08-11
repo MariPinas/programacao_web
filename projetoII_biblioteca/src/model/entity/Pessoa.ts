@@ -14,7 +14,6 @@ export class Pessoa{
     private validatesInformation(nome:any, email:any){
         let error ='';
         if (typeof nome !== 'string' || typeof email !== 'string') {
-            console.log("CLASSE PESSOA", nome, email);
             error += ("Informações incompletas ou incorretas. ");
         }
 

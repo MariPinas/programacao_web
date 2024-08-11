@@ -30,7 +30,6 @@ export class PessoaRepository{
     }
 
     async insertPessoa(pessoa:Pessoa) :Promise<Pessoa>{
-        console.log("REPOSITORY PESSOA", pessoa);
         const query = "INSERT INTO biblioteca.Pessoa (nome, email) VALUES (?, ?)" ;
 
         try {
@@ -47,7 +46,6 @@ export class PessoaRepository{
     }
 
     async updatePessoa(pessoa:Pessoa) :Promise<Pessoa>{
-        console.log("REPOSITORY PESSOA", pessoa);
         const query = "UPDATE biblioteca.Pessoa set nome = ?, email = ? where id = ?;" ;
 
         try {

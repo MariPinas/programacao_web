@@ -38,7 +38,6 @@ export class UsuarioRepository{
 
     
     async insertUsuario(usuario:Usuario) :Promise<Usuario>{
-        console.log("REPOSITORY USUARIO", usuario);
         const query = "INSERT INTO biblioteca.Usuario (nome,senha, idPessoa) VALUES (?,?,?)" ;
 
         try {
@@ -55,7 +54,6 @@ export class UsuarioRepository{
     }
 
     async updateUsuario(usuario:Usuario) :Promise<Usuario>{
-        console.log("REPOSITORY USUARIO", usuario);
         const query = "UPDATE biblioteca.Usuario set nome = ?, senha=?, idPessoa=? where id = ?;" ;
 
         try {
