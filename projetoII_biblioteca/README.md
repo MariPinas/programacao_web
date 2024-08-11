@@ -7,3 +7,5 @@ atualizacao v0.2: Foi feito a configuracao do Swagger e tsoa, alem de adicionar 
 atualizacao v0.3: Adicionado regra de negocio para Categoria.
 
 atualizacao v0.4 - Adicionado Pessoa e terminado primeira versao put post get e delete de Categoria.
+
+atualizacao v0.5 - Arrumado problemas de Categoria, categoria funcionando, adicionado Pessoa completo, pessoa funcionando, adicionado dto de usuario.

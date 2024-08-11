@@ -5,23 +5,23 @@ export class CategoriaService{
 
     private categoriaRepository = CategoriaRepository.getInstance();
 
-    async cadastrarCategoria(categoriaData:any): Promise<Categoria> {
+    async cadastrarCategoria(categoriaData: any): Promise<Categoria> {
         const {nome} = categoriaData;
-        console.log("SERVICE CADASTRAR CATEGORIA", nome);
 
-        if(!nome){
-            throw new Error("400 Bad Request - Informações incompletas");
-        }
-        const categoriaEncontrada = await this.categoriaRepository.buscaCategoriaporNome(categoriaData.nome);
-        if(!categoriaEncontrada){
-            const categoria = new Categoria(undefined, nome)
-            const novaCategoria =  await this.categoriaRepository.insertCategoria(categoria);
-            console.log("Service - Insert ", novaCategoria);
-            return novaCategoria;
-        }else{
-            throw new Error("409 Conflict - Categoria com esse nome já foi cadastrada!!!");
+        if (!nome|| nome.trim() === '') {
+            throw new Error("Nome nao pode ser vazio e tem que ser tipo string, digite um nome valido.");
         }
 
+        const categoria = new Categoria(undefined, nome);
+
+        const categoriasExistentes = await this.categoriaRepository.buscaCategoriaporNome(nome);
+        if (categoriasExistentes.length > 0) {
+            throw new Error("Categoria com esse nome já existe.");
+        }
+
+        const novaCategoria = await this.categoriaRepository.insertCategoria(categoria);
+        console.log("Service - Insert Categoria", novaCategoria);
+        return novaCategoria;
     }
 
     async atualizarCategoria(categoriaData: any): Promise<Categoria> {
@@ -37,39 +37,39 @@ export class CategoriaService{
             console.log("Service - Update ", categoria);
             return categoria;
         }else{
-        throw new Error("409 Conflict - Categoria com esse nome já foi cadastrada!!!");
+        throw new Error("400 Bad Request - Nao foi possivel atualizar!!!");
         } 
     }
 
-    async deletarCategoria(categoriaData: any): Promise<Categoria> {
+    async deletarCategoria(categoriaData: any): Promise<Categoria[]> {
         const {id, nome} = categoriaData;
-        if(!id || !nome){
+        if(!id || !nome || nome.trim() === ''){
             throw new Error("400 Bad Request - Informações incompletas");
         }
+        const categoria = new Categoria(id, nome)
         const categoriaEncontrada =  await this.categoriaRepository.buscaCategoriaporIDeNome(id, nome);
-        if(categoriaEncontrada){
-            const categoria = new Categoria(id, nome)
+        
+        if(categoriaEncontrada.length != 0){
             await this.categoriaRepository.deleteCategoria(categoria);
             console.log("Service - Delete ", categoria);
-            return categoria;
+            return categoriaEncontrada;
         }else{
-            throw new Error("409 Conflict - Categoria com esse nome já foi cadastrada!!!");
+            throw new Error("404!!! Not Found - Categoria nao encontrada!!");
         }
     }
 
-    async buscaCategoriaPorNome(categoriaData: any): Promise<Categoria> {
-        const {nome} = categoriaData;
-        if(nome){
+    async buscaCategoriaPorNome(name: string): Promise<Categoria[]> {
+        const nome:string = name;
+        if(!nome || nome.trim() === ''){
             throw new Error("400 Bad Request - Informações incompletas");
         }
-        const categoriaEncontrada =  await this.categoriaRepository.buscaCategoriaporNome(nome);
-        if(categoriaEncontrada){
-            console.log("Service - Filtrar", categoriaEncontrada);
-            return categoriaEncontrada;
+        const categoria =  await this.categoriaRepository.buscaCategoriaporNome(nome);
+        if(categoria.length != 0){
+            console.log("Service - Filtrar Nome", categoria);
+            return categoria;
         }else{
-            throw new Error("409 Conflict - Categoria com esse nome já foi cadastrada!!!");
+            throw new Error("404 Not Found - Categoria com esse nome nao existe!!!");
         }
-        
     }
 
     async buscaCategoriaPorID(categoriaData: any): Promise<Categoria> {
@@ -79,10 +79,10 @@ export class CategoriaService{
         }
         const categoria =  await this.categoriaRepository.buscaCategoriaporID(idNumber);
         if(categoria){
-            console.log("Service - Filtrar", categoria);
+            console.log("Service - Filtrar ID", categoria);
             return categoria;
         }else{
-            throw new Error("409 Conflict - Categoria com esse nome já foi cadastrada!!!");
+            throw new Error("404 Not Found  - Categoria com esse id nao existe!!!");
         }
         
     }

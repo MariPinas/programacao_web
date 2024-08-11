@@ -64,14 +64,14 @@ export class CategoriaRepository{
         }
     }
 
-    async deleteCategoria(categoria:Categoria) :Promise<Categoria>{
+    async deleteCategoria(categoria:Categoria) :Promise<Categoria[]>{
         const query = "DELETE FROM biblioteca.Categoria where id = ?;" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [categoria.id]);
+            const resultado: Categoria[] = await executarComandoSQL(query, [categoria.id]);
             console.log('Categoria deletada com sucesso: ', categoria);
-            return new Promise<Categoria>((resolve)=>{
-                resolve(categoria);
+            return new Promise<Categoria[]>((resolve)=>{
+                resolve(resultado);
             })
         } catch (err:any) {
             console.error(`Falha ao deletar a categoria de ID ${categoria.id} gerando o erro: ${err}`);
@@ -94,13 +94,13 @@ export class CategoriaRepository{
         }
     }
 
-    async buscaCategoriaporIDeNome(id: number, nome:number) :Promise<Categoria>{
+    async buscaCategoriaporIDeNome(id: number, nome:number) :Promise<Categoria[]>{
         const query = "SELECT * FROM biblioteca.Categoria where id = ? and nome = ?" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [id, nome]);
+            const resultado: Categoria[] = await executarComandoSQL(query, [id, nome]);
             console.log('Categoria localizada com sucesso, id e nome:', resultado);
-            return new Promise<Categoria>((resolve)=>{
+            return new Promise<Categoria[]>((resolve)=>{
                 resolve(resultado);
             })
         } catch (err:any) {
@@ -109,13 +109,13 @@ export class CategoriaRepository{
         }
     }
 
-    async buscaCategoriaporNome(nome: string) :Promise<Categoria>{
+    async buscaCategoriaporNome(nome: string) :Promise<Categoria[]>{
         const query = "SELECT * FROM biblioteca.Categoria where nome = ?" ;
 
         try {
-            const resultado = await executarComandoSQL(query, [nome]);
+            const resultado: Categoria[] = await executarComandoSQL(query, [nome]);
             console.log('Categoria localizada com sucesso, Nome: ', resultado);
-            return new Promise<Categoria>((resolve)=>{
+            return new Promise<Categoria[]>((resolve)=>{
                 resolve(resultado);
             })
         } catch (err:any) {
