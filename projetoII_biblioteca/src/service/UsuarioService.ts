@@ -69,7 +69,7 @@ export class UsuarioService{
         }
     }
 
-    async buscaUsuarioPorID(usuarioData: any): Promise<Usuario> {
+    async buscaUsuarioPorID(usuarioData: any): Promise<Usuario[]> {
         const idNumber = parseInt(usuarioData, 10);
         if(!idNumber){
             throw new Error("400 Bad Request - Informações incompletas");

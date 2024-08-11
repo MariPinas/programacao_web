@@ -70,14 +70,14 @@ export class CategoriaController extends Controller{
     }
 
     @Get("nome")
-    async filtrarProdutoPorNome(
+    async filtrarCategoriaPorNome(
         @Query() nome: string,
         @Res() notFound: TsoaResponse<400, BasicResponseDto>,
         @Res() success: TsoaResponse<200, BasicResponseDto>
     ): Promise<void> {
         try {
             const categoria = await this.serviceCategoria.buscaCategoriaPorNome(nome);
-            return success(200, new BasicResponseDto("Produto encontrado!", categoria));
+            return success(200, new BasicResponseDto("Categoria encontrado!", categoria));
         } catch (error: any) {
             return notFound(400, new BasicResponseDto(error.message, undefined));
 
@@ -85,13 +85,13 @@ export class CategoriaController extends Controller{
     }
 
     @Get("all")
-    async listarTodosProduto(
+    async listarTodasCategoria(
         @Res() notFound: TsoaResponse<400, BasicResponseDto>,
         @Res() success: TsoaResponse<200, BasicResponseDto>
     ): Promise<void> {
         try {
             const categorias: Categoria[] = await this.serviceCategoria.listarTodasCategorias();
-            return success(200, new BasicResponseDto("Produtos listados com sucesso!", categorias));
+            return success(200, new BasicResponseDto("Categorias listados com sucesso!", categorias));
         } catch (error: any) {
             return notFound(400, new BasicResponseDto(error.message, undefined));
         }

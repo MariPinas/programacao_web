@@ -1,20 +1,24 @@
+import { LivroRepository } from "../repository/LivroRepository";
 import { Emprestimo } from "../model/entity/Emprestimo";
 import { EmprestimoRepository } from "../repository/EmprestimoRepository";
+import { UsuarioRepository } from "../repository/UsuarioRepository";
 
 export class EmprestimoService{
 
     private emprestimoRepository = EmprestimoRepository.getInstance();
+    private livroRepository = LivroRepository.getInstance();
+    private usuarioRepository =  UsuarioRepository.getInstance();
 
     async cadastrarEmprestimo(emprestimoData: any): Promise<Emprestimo> {
         const {livroID, usuarioID, dataEmprestimo, dataDevolucao} = emprestimoData;
 
         const emprestimo = new Emprestimo(undefined, livroID, usuarioID, dataEmprestimo, dataDevolucao);
 
-        const emprestimosDeIdLivroExistente = await this.emprestimoRepository.buscaEmprestimoporIdLivro(livroID);
+        const emprestimosDeIdLivroExistente = await this.livroRepository.buscaLivroporID(livroID);
         if (emprestimosDeIdLivroExistente.length == 0) {
             throw new Error("Emprestimo nao pode ser feito, livro nao existe.");
         }
-        const emprestimoDeIdUsuarioExistente = await this.emprestimoRepository.buscaEmprestimoporIdUsuario(usuarioID);
+        const emprestimoDeIdUsuarioExistente = await this.usuarioRepository.buscaUsuarioporID(usuarioID);
         if (emprestimoDeIdUsuarioExistente.length == 0) {
             throw new Error("Emprestimo nao pode ser feito, esse Usuario nao existe.");
         }

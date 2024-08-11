@@ -425,7 +425,7 @@
 		},
 		"/usuario/nome": {
 			"get": {
-				"operationId": "FiltrarProdutoPorNome",
+				"operationId": "FiltrarUsuarioPorNome",
 				"responses": {
 					"200": {
 						"description": "",
@@ -680,7 +680,7 @@
 		},
 		"/pessoa/nome": {
 			"get": {
-				"operationId": "FiltrarProdutoPorNome",
+				"operationId": "FiltrarPessoaPorNome",
 				"responses": {
 					"200": {
 						"description": "",
@@ -1491,7 +1491,7 @@
 		},
 		"/categoria/nome": {
 			"get": {
-				"operationId": "FiltrarProdutoPorNome",
+				"operationId": "FiltrarCategoriaPorNome",
 				"responses": {
 					"200": {
 						"description": "",
@@ -1535,7 +1535,7 @@
 		},
 		"/categoria/all": {
 			"get": {
-				"operationId": "ListarTodosProduto",
+				"operationId": "ListarTodasCategoria",
 				"responses": {
 					"200": {
 						"description": "",

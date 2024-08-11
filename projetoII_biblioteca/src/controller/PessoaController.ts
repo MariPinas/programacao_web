@@ -70,7 +70,7 @@ export class PessoaController extends Controller{
     }
 
     @Get("nome")
-    async filtrarProdutoPorNome(
+    async filtrarPessoaPorNome(
         @Query() nome: string,
         @Res() notFound: TsoaResponse<400, BasicResponseDto>,
         @Res() success: TsoaResponse<200, BasicResponseDto>

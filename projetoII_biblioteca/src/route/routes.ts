@@ -276,9 +276,9 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/usuario/nome',
             ...(fetchMiddlewares<RequestHandler>(UsuarioController)),
-            ...(fetchMiddlewares<RequestHandler>(UsuarioController.prototype.filtrarProdutoPorNome)),
+            ...(fetchMiddlewares<RequestHandler>(UsuarioController.prototype.filtrarUsuarioPorNome)),
 
-            async function UsuarioController_filtrarProdutoPorNome(request: ExRequest, response: ExResponse, next: any) {
+            async function UsuarioController_filtrarUsuarioPorNome(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
                     nome: {"in":"query","name":"nome","required":true,"dataType":"string"},
                     notFound: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
@@ -294,7 +294,7 @@ export function RegisterRoutes(app: Router) {
                 const controller = new UsuarioController();
 
               await templateService.apiHandler({
-                methodName: 'filtrarProdutoPorNome',
+                methodName: 'filtrarUsuarioPorNome',
                 controller,
                 response,
                 next,
@@ -467,9 +467,9 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/pessoa/nome',
             ...(fetchMiddlewares<RequestHandler>(PessoaController)),
-            ...(fetchMiddlewares<RequestHandler>(PessoaController.prototype.filtrarProdutoPorNome)),
+            ...(fetchMiddlewares<RequestHandler>(PessoaController.prototype.filtrarPessoaPorNome)),
 
-            async function PessoaController_filtrarProdutoPorNome(request: ExRequest, response: ExResponse, next: any) {
+            async function PessoaController_filtrarPessoaPorNome(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
                     nome: {"in":"query","name":"nome","required":true,"dataType":"string"},
                     notFound: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
@@ -485,7 +485,7 @@ export function RegisterRoutes(app: Router) {
                 const controller = new PessoaController();
 
               await templateService.apiHandler({
-                methodName: 'filtrarProdutoPorNome',
+                methodName: 'filtrarPessoaPorNome',
                 controller,
                 response,
                 next,
@@ -1072,9 +1072,9 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/categoria/nome',
             ...(fetchMiddlewares<RequestHandler>(CategoriaController)),
-            ...(fetchMiddlewares<RequestHandler>(CategoriaController.prototype.filtrarProdutoPorNome)),
+            ...(fetchMiddlewares<RequestHandler>(CategoriaController.prototype.filtrarCategoriaPorNome)),
 
-            async function CategoriaController_filtrarProdutoPorNome(request: ExRequest, response: ExResponse, next: any) {
+            async function CategoriaController_filtrarCategoriaPorNome(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
                     nome: {"in":"query","name":"nome","required":true,"dataType":"string"},
                     notFound: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
@@ -1090,7 +1090,7 @@ export function RegisterRoutes(app: Router) {
                 const controller = new CategoriaController();
 
               await templateService.apiHandler({
-                methodName: 'filtrarProdutoPorNome',
+                methodName: 'filtrarCategoriaPorNome',
                 controller,
                 response,
                 next,
@@ -1104,9 +1104,9 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/categoria/all',
             ...(fetchMiddlewares<RequestHandler>(CategoriaController)),
-            ...(fetchMiddlewares<RequestHandler>(CategoriaController.prototype.listarTodosProduto)),
+            ...(fetchMiddlewares<RequestHandler>(CategoriaController.prototype.listarTodasCategoria)),
 
-            async function CategoriaController_listarTodosProduto(request: ExRequest, response: ExResponse, next: any) {
+            async function CategoriaController_listarTodasCategoria(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
                     notFound: {"in":"res","name":"400","required":true,"ref":"BasicResponseDto"},
                     success: {"in":"res","name":"200","required":true,"ref":"BasicResponseDto"},
@@ -1121,7 +1121,7 @@ export function RegisterRoutes(app: Router) {
                 const controller = new CategoriaController();
 
               await templateService.apiHandler({
-                methodName: 'listarTodosProduto',
+                methodName: 'listarTodasCategoria',
                 controller,
                 response,
                 next,

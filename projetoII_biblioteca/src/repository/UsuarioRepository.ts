@@ -83,13 +83,13 @@ export class UsuarioRepository{
         }
     }
 
-    async buscaUsuarioporID(id: number) :Promise<Usuario>{
+    async buscaUsuarioporID(id: number) :Promise<Usuario[]>{
         const query = "SELECT * FROM biblioteca.Usuario where id = ?" ;
 
         try {
             const resultado = await executarComandoSQL(query, [id]);
             console.log('Usuario localizada com sucesso, ID: ', resultado);
-            return new Promise<Usuario>((resolve)=>{
+            return new Promise<Usuario[]>((resolve)=>{
                 resolve(resultado);
             })
         } catch (err:any) {

@@ -68,7 +68,7 @@ export class LivroRepository{
 
         try {
             const resultado: Livro[] = await executarComandoSQL(query, [livro.id]);
-            console.log('Livro deletada com sucesso: ', livro);
+            console.log('Livro deletado com sucesso: ', livro);
             return new Promise<Livro[]>((resolve)=>{
                 resolve(resultado);
             })
@@ -78,13 +78,13 @@ export class LivroRepository{
         }
     }
 
-    async buscaLivroporID(id: number) :Promise<Livro>{
+    async buscaLivroporID(id: number) :Promise<Livro[]>{
         const query = "SELECT * FROM biblioteca.Livro where id = ?" ;
 
         try {
             const resultado = await executarComandoSQL(query, [id]);
-            console.log('Livro localizada com sucesso, ID: ', resultado);
-            return new Promise<Livro>((resolve)=>{
+            console.log('Livro localizado com sucesso, ID: ', resultado);
+            return new Promise<Livro[]>((resolve)=>{
                 resolve(resultado);
             })
         } catch (err:any) {

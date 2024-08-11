@@ -15,3 +15,5 @@ atualizacao v0.6 - Arrumado problemas de Pessoa, pessoa funcionando, adicionado 
 atualizacao v0.7 - Livro adicionado, livro funcionando.
 
 atualizacao v0.8 - Emprestimo adicionado, emprestimo funcionando, apagado consoles.log.
+
+atualizacao v0.9 - Resolvido os problemas finais em emprestimo, supostamente ultimo commit?.

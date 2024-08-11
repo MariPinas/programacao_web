@@ -66,7 +66,7 @@ export class LivroService{
         }
     }
 
-    async buscaLivroPorID(livroData: any): Promise<Livro> {
+    async buscaLivroPorID(livroData: any): Promise<Livro[]> {
         const idNumber = parseInt(livroData, 10);
         if(!idNumber){
             throw new Error("400 Bad Request - Informações incompletas");
